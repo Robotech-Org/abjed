@@ -7,10 +7,11 @@ export default function Home() {
     <div className="min-h-screen bg-[#FDF9F1] font-sans text-[#2B4238] flex flex-col">
       <Navbar />
 
-<div className="flex flex-col w-fit gap-2 mx-4 rounded-2xl bg-green-800 p-4 animate-pulse hover:animate-none ">
+<div className="flex flex-col w-fit gap-2  rounded-2xl bg-green-800 p-4 animate-pulse hover:animate-none ">
 <Link className="text-green-100 hover:underline" href={"/pricing"}>Pricing page  ➡</Link>
 <Link className="text-green-100 hover:underline" href={"/checkout"}>Checkout page ➡</Link>
 
+</div>
 
       <main className="flex-1 flex flex-col max-w-7xl mx-auto w-full px-6 pt-4 md:pt-12 pb-24">
         
