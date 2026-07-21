@@ -108,7 +108,7 @@ export default function LoginPage() {
           </div>
         </div>
         {/* Right Column: Login Card */}
-        <div className="w-full max-w-[550px]">
+        <div className="w-full max-w-[440px]">
           <div className="bg-white rounded-[32px] p-6 md:p-8 border border-neutral-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
             <div className="mb-8 text-center md:text-left">
               <h2 className="text-2xl font-bold text-[#2B4238] mb-2">Welcome back, parent</h2>
@@ -176,7 +176,7 @@ export default function LoginPage() {
               </div>
 
               <div className="flex items-center justify-between pt-1">
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                   <input
                     id="trust-device"
                     type="checkbox"
@@ -185,7 +185,7 @@ export default function LoginPage() {
                   <label htmlFor="trust-device" className="ml-2 block text-sm text-neutral-500 cursor-pointer">
                     Trust this device
                   </label>
-                </div>
+                </div> */}
                 <button type="button" className="text-sm font-bold text-[#2B4238] hover:underline">
                   Forgot password?
                 </button>
