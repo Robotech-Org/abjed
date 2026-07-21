@@ -21,7 +21,14 @@ export default function PaymentModal({ planId }: { planId: string }) {
   const [mobile, setMobile] = useState("");
   const [mobileError, setMobileError] = useState("");
   const [error, setError] = useState("");
-  const idempotencyKey = useRef(crypto.randomUUID()); // one key per attempt
+  const idempotencyKey = useRef(""); // initialized on submit
+
+  function getSafeIdempotencyKey() {
+    if (typeof window !== "undefined" && window.crypto && window.crypto.randomUUID) {
+      return window.crypto.randomUUID();
+    }
+    return Math.random().toString(36).substring(2) + Date.now().toString(36);
+  }
 
   function validateMobile() {
     if (!MOBILE_PATTERN.test(mobile)) {
@@ -38,6 +45,10 @@ export default function PaymentModal({ planId }: { planId: string }) {
 
     setStatus("submitting");
     setError("");
+
+    if (!idempotencyKey.current) {
+      idempotencyKey.current = getSafeIdempotencyKey();
+    }
 
     try {
       const res = await fetch("/api/orders", {
@@ -83,7 +94,7 @@ export default function PaymentModal({ planId }: { planId: string }) {
   }
 
   function retry() {
-    idempotencyKey.current = crypto.randomUUID(); // new logical attempt
+    idempotencyKey.current = getSafeIdempotencyKey(); // new logical attempt
     setError("");
     setStatus("collecting-phone");
   }
