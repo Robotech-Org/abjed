@@ -2,6 +2,7 @@ import { Check, X, Shield, Lock } from "lucide-react";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Typewriter from "@/components/Typewriter";
 
 export default async function PricingPage() {
   // Fetch plans from backend
@@ -35,6 +36,7 @@ export default async function PricingPage() {
             Give your child <br />
             the <span className="underline decoration-4 underline-offset-4 decoration-[#2B4238]">ultimate learning</span> <br className="hidden md:block" />
             adventure
+            
           </h1>
           <p className="text-[#4A5D54] text-sm md:text-lg leading-relaxed max-w-[300px] md:max-w-none mx-auto">
             Interactive daily lessons, playful quests, and adaptive skill-building for ages 3 to 10. Start today and cancel anytime.

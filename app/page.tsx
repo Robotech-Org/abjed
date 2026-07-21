@@ -1,13 +1,15 @@
 import { Shield, CheckCircle2, Gamepad2, BarChart3, Star } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import Typewriter from "@/components/Typewriter";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#FDF9F1] font-sans text-[#2B4238] flex flex-col">
       <Navbar />
 
-<div className="flex flex-col w-fit gap-2  rounded-2xl bg-green-800 p-4 animate-pulse hover:animate-none ">
+<div className="ml-4 flex flex-col w-fit gap-2  rounded-2xl bg-green-950 p-4  hover:animate-none ">
+  <p className="animate-pulse text-green-100 text-sm">for testing purpose protected by middleware</p>
 <Link className="text-green-100 hover:underline" href={"/pricing"}>Pricing page  ➡</Link>
 <Link className="text-green-100 hover:underline" href={"/checkout"}>Checkout page ➡</Link>
 
@@ -40,10 +42,8 @@ export default function Home() {
               AD-FREE AND SAFE FOR KIDS
             </div>
             
-            <h3 className="text-[32px] leading-[1.1] md:text-5xl lg:text-[44px] font-extrabold tracking-tight mb-4 md:mb-6 text-[#2B4238]">
-              Master the <br className="hidden md:block" />
-              Arabic Alphabet <br className="hidden md:block" />
-              through Play!
+            <h3 className="text-[32px] leading-[1.1] md:text-5xl lg:text-[44px] font-extrabold tracking-tight mb-4 md:mb-6 text-[#2B4238] min-h-[110px] md:min-h-[150px] max-w-[320px] md:max-w-[500px]">
+              <Typewriter text="Master the Arabic Alphabet through Play!" speed={60} />
             </h3>
             
             <p className="text-[#4A5D54] text-[15px] md:text-lg leading-relaxed mb-8 md:mb-10">

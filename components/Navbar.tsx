@@ -35,7 +35,7 @@ export default function Navbar() {
           <div className="w-8 h-8 bg-yellow-400 rounded-md flex items-center justify-center font-bold text-white">
             <img src="/abjad.svg" alt="Abjad Kids Logo" className="w-full h-full object-contain" />
           </div>
-          <span className="font-bold text-lg tracking-tight text-[#2B4238]">ABJAD Kids</span>
+          <Link className="font-bold text-lg tracking-tight text-[#2B4238]" href={"/"}>ABJAD Kids</Link>
         </div>
         
         {/* Desktop Nav */}
