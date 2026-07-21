@@ -1,10 +1,16 @@
 import { Shield, CheckCircle2, Gamepad2, BarChart3, Star } from "lucide-react";
 import Navbar from "@/components/Navbar";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#FDF9F1] font-sans text-[#2B4238] flex flex-col">
       <Navbar />
+
+<div className="flex flex-col w-fit gap-2 mx-4 rounded-2xl bg-green-800 p-4 animate-pulse hover:animate-none ">
+<Link className="text-green-100 hover:underline" href={"/pricing"}>Pricing page  ➡</Link>
+<Link className="text-green-100 hover:underline" href={"/checkout"}>Checkout page ➡</Link>
+
 
       <main className="flex-1 flex flex-col max-w-7xl mx-auto w-full px-6 pt-4 md:pt-12 pb-24">
         
