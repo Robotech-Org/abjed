@@ -30,13 +30,13 @@ export default function ResetPasswordForm({ token }: { token?: string }) {
     return (
       <div className="min-h-screen bg-[#FDF9F1] font-sans text-[#2B4238] flex flex-col">
         <Navbar />
-        <main className="flex-1 flex items-center justify-center px-6 pb-24">
-          <div className="bg-white rounded-[32px] p-8 max-w-sm w-full border border-neutral-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] text-center">
-            <div className="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-100">
+        <main className="flex-1 flex items-center justify-center px-6 ">
+          <div className="bg-white rounded-[32px] p-4 max-w-sm w-full border border-neutral-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] text-center">
+            <div className="w-14 h-8 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-red-100">
               <AlertCircle className="w-7 h-7 text-red-600" />
             </div>
             <h2 className="text-2xl font-bold text-[#2B4238] mb-2">Missing Link</h2>
-            <p className="text-sm text-neutral-500 mb-8 leading-relaxed">
+            <p className="text-sm text-neutral-500 leading-relaxed w-40">
               We couldn't find your reset token. Please request a new password reset link.
             </p>
             <Link href="/forgot-password" className="block w-full rounded-xl bg-[#2B4238] py-3.5 text-sm font-bold text-white hover:bg-[#1E3028] transition-colors">
@@ -92,7 +92,7 @@ export default function ResetPasswordForm({ token }: { token?: string }) {
     <div className="min-h-screen bg-[#FDF9F1] font-sans text-[#2B4238] flex flex-col">
       <Navbar />
 
-      <main className="flex-1 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12 lg:gap-24 px-6 pt-6 md:pt-12 pb-24 max-w-7xl mx-auto w-full">
+      <main className="flex-1 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-4 lg:gap-10 px-6 pt-6 md:pt-12 pb-4 max-w-7xl mx-auto w-full">
         
         {/* Left Column: Context & Info */}
         <div className="flex-1 max-w-lg lg:max-w-xl w-full">
@@ -106,14 +106,14 @@ export default function ResetPasswordForm({ token }: { token?: string }) {
             password
           </h1>
           
-          <p className="text-[#4A5D54] text-[15px] md:text-[17px] leading-relaxed mb-8">
+          <p className="text-[#4A5D54] text-[15px] md:text-[17px] leading-relaxed mb-4">
             Choose a strong, unique password to secure your parent account.
           </p>
         </div>
 
         {/* Right Column: Card */}
         <div className="w-full max-w-[440px]">
-          <div className="bg-white rounded-[32px] p-6 md:p-8 border border-neutral-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <div className="bg-white rounded-[32px] p-4 md:p-6 border border-neutral-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
             <div className="mb-8 text-center md:text-left">
               <h2 className="text-2xl font-bold text-[#2B4238] mb-2">New Password</h2>
               <p className="text-sm text-neutral-500">
