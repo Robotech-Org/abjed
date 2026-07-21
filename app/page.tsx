@@ -43,8 +43,8 @@ export default function Home() {
               ABJAD Kids helps children discover Arabic letters with joyful mini-games, kid-safe learning moments, and a parent-friendly experience built to support progress at every step.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <button className="w-full sm:w-auto flex justify-center items-center gap-2 px-8 py-4 bg-[#2B4238] text-white rounded-full font-bold hover:bg-[#1E3028] transition-colors shadow-sm">
+            <div className="flex flex-col sm:flex-row items-center gap-4 ">
+              <button className="w-full sm:w-auto flex justify-center items-center gap-2 px-8 py-4 bg-[#2B4238] text-white rounded-full font-bold hover:bg-[#1E3028] transition-colors shadow-sm hover:scale-[1.02] hover:transition-transform ">
                 Download the App
               </button>
               <div className="hidden sm:flex items-center gap-2 px-5 py-3 bg-white rounded-full text-sm font-bold text-[#2B4238] border border-neutral-100 shadow-sm">
@@ -58,7 +58,7 @@ export default function Home() {
 
         {/* Features Section */}
         <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-3xl p-8 border border-neutral-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_4px_20px_rgb(0,0,0,0.06)] transition-shadow">
+          <div className="bg-white rounded-3xl p-8 border border-neutral-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_4px_20px_rgb(0,0,0,0.06)] transition-shadow hover:scale-[1.02] hover:transition-transform">
             <div className="w-12 h-12 bg-[#FDF9F1] rounded-full flex items-center justify-center mb-6">
               <Gamepad2 className="w-6 h-6 text-[#2B4238]" strokeWidth={1.5} />
             </div>
@@ -68,7 +68,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl p-8 border border-neutral-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_4px_20px_rgb(0,0,0,0.06)] transition-shadow">
+          <div className="bg-white rounded-3xl p-8 border border-neutral-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_4px_20px_rgb(0,0,0,0.06)] transition-shadow hover:scale-[1.02] hover:transition-transform">
             <div className="w-12 h-12 bg-[#FDF9F1] rounded-full flex items-center justify-center mb-6">
               <Shield className="w-6 h-6 text-[#2B4238]" strokeWidth={1.5} />
             </div>
@@ -78,7 +78,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl p-8 border border-neutral-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_4px_20px_rgb(0,0,0,0.06)] transition-shadow">
+          <div className="bg-white rounded-3xl p-8 border border-neutral-100 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_4px_20px_rgb(0,0,0,0.06)] transition-shadow hover:scale-[1.02] hover:transition-transform ">
             <div className="w-12 h-12 bg-[#FDF9F1] rounded-full flex items-center justify-center mb-6">
               <BarChart3 className="w-6 h-6 text-[#2B4238]" strokeWidth={1.5} />
             </div>

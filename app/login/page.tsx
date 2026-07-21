@@ -65,7 +65,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[#FDF9F1] font-sans text-[#2B4238] flex flex-col">
       <Navbar />
 
-      <main className="flex-1 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12 lg:gap-24 px-6 pt-6 md:pt-12 pb-24 max-w-7xl mx-auto w-full">
+      <main className="flex-1 flex flex-col lg:flex-row items-center lg:items-start justify-center gap4 lg:gap-24 px-6 pt-6 md:pt-12 pb-24 max-w-7xl mx-auto w-full">
         
         {/* Left Column: Context & Info */}
         <div className="flex-1 max-w-lg lg:max-w-xl w-full">
@@ -107,9 +107,8 @@ export default function LoginPage() {
             </div>
           </div>
         </div>
-
         {/* Right Column: Login Card */}
-        <div className="w-full max-w-[440px]">
+        <div className="w-full max-w-[550px]">
           <div className="bg-white rounded-[32px] p-6 md:p-8 border border-neutral-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
             <div className="mb-8 text-center md:text-left">
               <h2 className="text-2xl font-bold text-[#2B4238] mb-2">Welcome back, parent</h2>
@@ -225,7 +224,7 @@ export default function LoginPage() {
           <Link href="#" className="hover:text-black">Contact Support</Link>
         </div>
         <p className="text-[11px] text-neutral-400">
-          © 2024 ABJAD Kids. All rights reserved.
+          © 2026 ABJAD Kids. All rights reserved.
         </p>
       </footer>
     </div>

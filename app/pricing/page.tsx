@@ -44,7 +44,7 @@ export default async function PricingPage() {
         {/* Pricing Cards */}
         <div className="grid md:grid-cols-3 gap-6 max-w-5xl w-full mb-16 md:mb-24 items-start">
           {/* Basic Plan */}
-          <div className={`bg-white rounded-[32px] p-6 md:p-8 border border-neutral-200 shadow-sm md:mt-8 ${!explorerPlan ? 'opacity-50' : ''}`}>
+          <div className={`bg-white rounded-[32px] p-6 md:p-8 border border-neutral-200 transition-transform duration-200 hover:scale-[1.02] shadow-sm md:mt-8 ${!explorerPlan ? 'opacity-50' : ''}`}>
             <div className="flex justify-between items-center mb-4">
               <h3 className="font-bold text-lg">Explorer</h3>
               <span className="text-xs font-semibold px-2.5 py-1 bg-[#F0EBE1] rounded-full text-neutral-600">Monthly</span>
@@ -86,7 +86,7 @@ export default async function PricingPage() {
           </div>
 
           {/* Pro Plan (Highlighted) */}
-          <div className={`bg-white rounded-[32px] border-2 border-blue-400 shadow-xl relative overflow-hidden ${!superPlan ? 'opacity-50' : ''}`}>
+          <div className={`bg-white rounded-[32px] border-2 border-blue-400 shadow-xl transition-transform duration-200 hover:scale-[1.02] relative overflow-hidden ${!superPlan ? 'opacity-50' : ''}`}>
             <div className="bg-blue-400 text-white text-center text-xs font-bold py-2.5 uppercase tracking-wider">
               ⭐ MOST POPULAR CHOICE
             </div>
@@ -141,7 +141,7 @@ export default async function PricingPage() {
           </div>
 
           {/* Lifetime Plan */}
-          <div className={`bg-white rounded-[32px] p-6 md:p-8 border border-neutral-200 shadow-sm md:mt-8 relative overflow-hidden ${!ultimatePlan ? 'opacity-50' : ''}`}>
+          <div className={`bg-white rounded-[32px] p-6 md:p-8 border border-neutral-200 transition-transform duration-200 hover:scale-[1.02] shadow-sm md:mt-8 relative overflow-hidden ${!ultimatePlan ? 'opacity-50' : ''}`}>
             <div className="absolute top-0 right-0 w-16 h-16 bg-yellow-400 rounded-bl-3xl flex items-end justify-start p-3">
               <span className="text-yellow-900 text-xs font-bold rotate-45 transform translate-x-2 -translate-y-1">⭐</span>
             </div>

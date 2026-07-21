@@ -39,14 +39,14 @@ export default function Navbar() {
         </div>
         
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium">
+        <div className="hidden md:flex items-center gap-6 text-sm font-medium ">
           <Link href="/" className={`hover:text-black ${pathname === '/' ? 'font-bold text-[#2B4238]' : 'text-[#4A5D54]'}`}>
             Home
           </Link>
           <Link href="/pricing" className={`hover:text-black transition-colors ${pathname === '/pricing' ? 'font-bold text-[#2B4238]' : 'text-[#4A5D54]'}`}>
             Subscription
           </Link>
-          <Link href="/login" className="px-5 py-2.5 bg-white border border-neutral-200 text-[#2B4238] rounded-full hover:bg-neutral-50 transition-colors shadow-sm font-bold">
+          <Link href="/login" className="px-5 py-2.5 bg-white border border-neutral-200 text-[#2B4238] rounded-full hover:bg-neutral-50 transition-colors shadow-sm font-bold hover:animate-pulse">
             Parent Portal
           </Link>
           {isLoggedIn && (

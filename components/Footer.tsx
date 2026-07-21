@@ -14,7 +14,7 @@ const Footer = () => {
               <span className="font-bold tracking-tight text-[#2B4238]">ABJAD Kids</span>
             </div>
             <div className="text-xs text-[#8A9D94]">
-              © 2024 Abjad Kids LLC. All rights reserved.
+              © 2026 Abjad Kids LLC. All rights reserved.
             </div>
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-medium text-[#4A5D54]">
