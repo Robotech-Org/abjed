@@ -1,7 +1,7 @@
 // middleware.ts — at project root, not app/
 import { NextRequest, NextResponse } from "next/server";
 
-const PROTECTED_PREFIXES = ["", ""];
+const PROTECTED_PREFIXES = ["/test"];
 
 export function middleware(req: NextRequest) {
   const hasToken = req.cookies.has("accessToken");
