@@ -9,7 +9,7 @@ export default function Home() {
       <Navbar />
 
 <div className="ml-4 flex flex-col w-fit gap-2  rounded-2xl bg-green-950 p-4  hover:animate-none ">
-  <p className="animate-pulse text-green-100 text-sm">for testing purpose.  protected by middleware on production</p>
+  <p className="animate-pulse text-green-100 text-sm">for testing purpose.<br/> protected by middleware on production</p>
 <Link className="text-green-100 hover:underline" href={"/pricing"}>Pricing page  ➡</Link>
 <Link className="text-green-100 hover:underline" href={"/checkout"}>Checkout page ➡</Link>
 
