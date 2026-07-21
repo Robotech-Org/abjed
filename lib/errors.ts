@@ -4,6 +4,7 @@ export const ERROR_MESSAGES: Record<string, string> = {
   weak_password: "Password must be at least 8 characters.",
   rate_limited: "Too many attempts. Try again in a minute.",
   session_expired: "Your session expired. Please log in again.",
+  invalid_or_expired_token: "The reset link is invalid or has expired.",
   network_error: "Couldn't reach the server. Please try again.",
 };
 

@@ -186,9 +186,9 @@ export default function LoginPage() {
                     Trust this device
                   </label>
                 </div> */}
-                <button type="button" className="text-sm font-bold text-[#2B4238] hover:underline">
+                <Link href="/forgot-password" className="text-sm font-bold text-[#2B4238] hover:underline">
                   Forgot password?
-                </button>
+                </Link>
               </div>
 
               <button
