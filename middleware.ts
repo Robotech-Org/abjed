@@ -5,7 +5,7 @@ const PROTECTED_PREFIXES = ["/checkout", "/pricing"];
 const AUTH_ROUTES = ["/login", "/signup", "/forgot-password", "/reset-password"];
 
 export function middleware(req: NextRequest) {
-  const hasToken = req.cookies.has("accessToken");
+  const hasToken = req.cookies.has("accessToken") || req.cookies.has("refreshToken");
   const pathname = req.nextUrl.pathname;
 
   const isProtected = PROTECTED_PREFIXES.some((p) =>
