@@ -17,6 +17,10 @@ export default function Navbar() {
   }, []);
 
   async function handleLogout() {
+    if (!window.confirm("Are you sure you want to log out?")) {
+      return;
+    }
+    
     try {
       await fetch("/api/auth/logout", { method: "POST" });
     } catch (e) {
