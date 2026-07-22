@@ -8,6 +8,7 @@ import { Menu, X, GraduationCap, Ticket, Settings, LogOut } from "lucide-react";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -17,9 +18,7 @@ export default function Navbar() {
   }, []);
 
   async function handleLogout() {
-    if (!window.confirm("Are you sure you want to log out?")) {
-      return;
-    }
+    setIsLogoutModalOpen(false);
     
     try {
       await fetch("/api/auth/logout", { method: "POST" });
@@ -54,7 +53,7 @@ export default function Navbar() {
             Parent Portal
           </Link>
           {isLoggedIn && (
-            <button onClick={handleLogout} className="text-[#4A5D54] hover:text-black transition-colors font-medium">
+            <button onClick={() => setIsLogoutModalOpen(true)} className="text-[#4A5D54] hover:text-black transition-colors font-medium">
               Logout
             </button>
           )}
@@ -131,7 +130,7 @@ export default function Navbar() {
           </Link>
           {isLoggedIn && (
             <button 
-              onClick={() => { setIsOpen(false); handleLogout(); }}
+              onClick={() => { setIsOpen(false); setIsLogoutModalOpen(true); }}
               className="flex w-full items-center gap-4 px-4 py-3 rounded-xl font-bold transition-colors text-red-600 hover:bg-red-50"
             >
               <LogOut className="w-5 h-5" />
@@ -149,6 +148,41 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
+      {/* Custom Logout Confirmation Modal */}
+      {isLogoutModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm"
+            onClick={() => setIsLogoutModalOpen(false)}
+          />
+          <div className="relative bg-white rounded-3xl p-6 md:p-8 max-w-sm w-full shadow-2xl animate-in fade-in zoom-in duration-200">
+            <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mb-4 mx-auto md:mx-0">
+              <LogOut className="w-6 h-6 text-red-600" />
+            </div>
+            <h3 className="text-xl font-bold text-[#2B4238] mb-2 text-center md:text-left">
+              Ready to leave?
+            </h3>
+            <p className="text-[#4A5D54] text-sm mb-8 text-center md:text-left leading-relaxed">
+              Are you sure you want to log out of your parent account?
+            </p>
+            <div className="flex flex-col-reverse md:flex-row gap-3">
+              <button 
+                onClick={() => setIsLogoutModalOpen(false)}
+                className="w-full px-4 py-3 text-sm font-bold text-[#4A5D54] bg-[#F4F4F4] hover:bg-[#E5E5E5] rounded-xl transition-colors"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleLogout}
+                className="w-full px-4 py-3 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-xl transition-colors shadow-sm"
+              >
+                Log Out
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

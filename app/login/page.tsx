@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Shield, Sparkles, Mail, KeyRound, ArrowRight, Lock, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Shield, Sparkles, Mail, ArrowRight, Lock, CheckCircle2, AlertCircle, Loader2, Eye, EyeOff, KeyRound } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
@@ -22,6 +22,7 @@ export default function LoginPage() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({});
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -154,30 +155,42 @@ export default function LoginPage() {
                 )}
               </div>
 
-              <div>
-                <label className="block text-xs font-bold text-[#2B4238] mb-2">
-                  Password
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                    <KeyRound className="h-4 w-4 text-neutral-400" />
-                  </div>
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                      if (fieldErrors.password) setFieldErrors({ ...fieldErrors, password: undefined });
-                    }}
-                    placeholder="Enter your password"
-                    aria-invalid={!!fieldErrors.password}
-                    className={`block w-full pl-10 pr-3 py-3.5 rounded-xl bg-[#F4F4F4] focus:bg-white sm:text-sm transition-colors outline-none border ${fieldErrors.password ? 'border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-500' : 'border-transparent focus:border-[#2B4238] focus:ring-1 focus:ring-[#2B4238]'}`}
-                  />
-                </div>
-                {fieldErrors.password && (
-                  <p className="mt-1.5 text-xs text-red-600 font-medium">{fieldErrors.password}</p>
-                )}
-              </div>
+             <div>
+  <label className="block text-xs font-bold text-[#2B4238] mb-2">
+    Password
+  </label>
+  <div className="relative">
+    <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+      <KeyRound className="h-4 w-4 text-neutral-400" />
+    </div>
+    <input
+      type={showPassword ? "text" : "password"}
+      value={password}
+      onChange={(e) => {
+        setPassword(e.target.value);
+        if (fieldErrors.password) setFieldErrors({ ...fieldErrors, password: undefined });
+      }}
+      placeholder="Enter your password"
+      aria-invalid={!!fieldErrors.password}
+      className={`block w-full pl-10 pr-10 py-3.5 rounded-xl bg-[#F4F4F4] focus:bg-white sm:text-sm transition-colors outline-none border ${fieldErrors.password ? 'border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-500' : 'border-transparent focus:border-[#2B4238] focus:ring-1 focus:ring-[#2B4238]'}`}
+    />
+    <button
+      type="button"
+      onClick={() => setShowPassword(!showPassword)}
+      className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-neutral-400 hover:text-neutral-600 transition-colors"
+      aria-label={showPassword ? "Hide password" : "Show password"}
+    >
+      {showPassword ? (
+        <EyeOff className="h-4 w-4" />
+      ) : (
+        <Eye className="h-4 w-4" />
+      )}
+    </button>
+  </div>
+  {fieldErrors.password && (
+    <p className="mt-1.5 text-xs text-red-600 font-medium">{fieldErrors.password}</p>
+  )}
+</div>
 
               <div className="flex items-center justify-between pt-1">
                 {/* <div className="flex items-center">
