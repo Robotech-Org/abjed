@@ -9,12 +9,23 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [user, setUser] = useState<{ email: string } | null>(null);
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    // Read the non-httpOnly UI cookie to determine state
-    setIsLoggedIn(document.cookie.includes("isLoggedIn=true"));
+    const loggedIn = document.cookie.includes("isLoggedIn=true");
+    setIsLoggedIn(loggedIn);
+
+    if (loggedIn) {
+      fetch("/api/auth/me")
+        .then(res => res.json())
+        .then(data => {
+          if (data.user) setUser(data.user);
+        })
+        .catch(() => {});
+    }
   }, []);
 
   async function handleLogout() {
@@ -49,13 +60,42 @@ export default function Navbar() {
           <Link href="/pricing" className={`hover:text-black transition-colors ${pathname === '/pricing' ? 'font-bold text-[#2B4238]' : 'text-[#4A5D54]'}`}>
             Subscription
           </Link>
-          <Link href="/login" className="px-5 py-2.5 bg-white border border-neutral-200 text-[#2B4238] rounded-full hover:bg-neutral-50 transition-colors shadow-sm font-bold hover:animate-pulse">
-            Parent Portal
-          </Link>
-          {isLoggedIn && (
-            <button onClick={() => setIsLogoutModalOpen(true)} className="text-[#4A5D54] hover:text-black transition-colors font-medium">
-              Logout
-            </button>
+          {isLoggedIn ? (
+            <div className="relative">
+              <button 
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center gap-2 px-1.5 py-1.5 bg-neutral-100 hover:bg-neutral-200 rounded-full transition-colors border border-neutral-200 shadow-sm"
+              >
+                <div className="w-8 h-8 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-bold text-sm">
+                  {user?.email?.[0]?.toUpperCase() || 'P'}
+                </div>
+              </button>
+              
+              {isDropdownOpen && (
+                <>
+                  <div className="fixed inset-0 z-40" onClick={() => setIsDropdownOpen(false)} />
+                  <div className="absolute right-0 mt-3 w-64 bg-white rounded-2xl shadow-xl border border-neutral-100 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="px-4 py-4 border-b border-neutral-100 bg-neutral-50/50">
+                      <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1">Signed in as</p>
+                      <p className="text-sm font-bold text-[#2B4238] truncate">{user?.email || 'Loading...'}</p>
+                    </div>
+                    <div className="p-2">
+                      <button 
+                        onClick={() => { setIsDropdownOpen(false); setIsLogoutModalOpen(true); }}
+                        className="w-full flex items-center gap-3 px-3 py-3 text-sm font-bold text-red-600 hover:bg-red-50 rounded-xl transition-colors text-left"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Log out
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          ) : (
+            <Link href="/login" className="px-5 py-2.5 bg-white border border-neutral-200 text-[#2B4238] rounded-full hover:bg-neutral-50 transition-colors shadow-sm font-bold hover:animate-pulse">
+              Parent Portal
+            </Link>
           )}
         </div>
 
@@ -89,12 +129,17 @@ export default function Navbar() {
         </div>
 
         <div className="flex flex-col items-center px-6 pb-8 border-b border-neutral-100">
-          <div className="w-16 h-16 bg-neutral-100 rounded-full mb-4 border-2 border-neutral-200 overflow-hidden">
-            {/* Placeholder avatar similar to image */}
-            <div className="w-full h-full bg-green-100 flex items-center justify-center text-green-700 font-bold text-xl">L</div>
+          <div className="w-16 h-16 bg-neutral-100 rounded-full mb-4 border-2 border-neutral-200 overflow-hidden shadow-sm">
+            <div className="w-full h-full bg-green-100 flex items-center justify-center text-green-700 font-bold text-2xl">
+              {isLoggedIn ? (user?.email?.[0]?.toUpperCase() || 'P') : 'L'}
+            </div>
           </div>
-          <h2 className="text-xl font-bold text-[#2B4238] mb-1">Hi, Learner!</h2>
-          <p className="text-sm text-neutral-500">Ready for a fun day?</p>
+          <h2 className="text-xl font-bold text-[#2B4238] mb-1">
+            {isLoggedIn ? 'Welcome Back!' : 'Hi, Learner!'}
+          </h2>
+          <p className="text-sm text-neutral-500 truncate w-full text-center">
+            {isLoggedIn ? (user?.email || 'Loading account...') : 'Ready for a fun day?'}
+          </p>
         </div>
 
         <div className="flex-1 px-4 py-6 space-y-2">
