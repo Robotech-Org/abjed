@@ -46,17 +46,17 @@ export default function PaymentModal({ planId }: { planId: string }) {
     setStatus("submitting");
     setError("");
 
-    if (!idempotencyKey.current) {
+    if(!idempotencyKey.current) {
       idempotencyKey.current = getSafeIdempotencyKey();
     }
 
-    try {
+    try { 
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          planId,
-          mobile,
+          planId, 
+          mobile, 
           idempotencyKey: idempotencyKey.current,
         }),
       });

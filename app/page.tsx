@@ -8,12 +8,12 @@ export default function Home() {
     <div className="min-h-screen bg-[#FDF9F1] font-sans text-[#2B4238] flex flex-col">
       <Navbar />
 
-<div className="ml-4 flex flex-col w-fit gap-2  rounded-2xl bg-green-950 p-4  hover:animate-none ">
+{/* <div className="ml-4 flex flex-col w-fit gap-2  rounded-2xl bg-green-950 p-4  hover:animate-none ">
   <p className="animate-pulse text-green-100 text-sm">for testing purpose.<br/> protected by middleware on production</p>
 <Link className="text-green-100 hover:underline" href={"/pricing"}>Pricing page  ➡</Link>
 <Link className="text-green-100 hover:underline" href={"/checkout"}>Checkout page ➡</Link>
 
-</div>
+</div> */}
 
       <main className="flex-1 flex flex-col max-w-7xl mx-auto w-full px-6 pt-4 md:pt-12 pb-24">
         
@@ -42,10 +42,9 @@ export default function Home() {
               AD-FREE AND SAFE FOR KIDS
             </div>
             
-            <h3 className="text-[32px] leading-[1.1] md:text-5xl lg:text-[44px] font-extrabold tracking-tight mb-4 md:mb-6 text-[#2B4238] min-h-[110px] md:min-h-[150px] max-w-[320px] md:max-w-[500px]">
-              <Typewriter text="Master the Arabic Alphabet through Play!" speed={60} />
+            <h3 className="text-[32px] leading-[1.1] md:text-5xl lg:text-[44px] font-extrabold tracking-tight  md:mb-4 text-[#2B4238] min-h-[110px] md:min-h-[150px] max-w-[320px] md:max-w-[500px]">
+              <Typewriter text="Master the Arabic Alphabet through Play!" speed={90} />
             </h3>
-            
             <p className="text-[#4A5D54] text-[15px] md:text-lg leading-relaxed mb-8 md:mb-10">
               ABJAD Kids helps children discover Arabic letters with joyful mini-games, kid-safe learning moments, and a parent-friendly experience built to support progress at every step.
             </p>
