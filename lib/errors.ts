@@ -6,6 +6,7 @@ export const ERROR_MESSAGES: Record<string, string> = {
   session_expired: "Your session expired. Please log in again.",
   invalid_or_expired_token: "The reset link is invalid or has expired.",
   network_error: "Couldn't reach the server. Please try again.",
+  invalid_request: "Please check your information and try again.",
 };
 
 export function getErrorMessage(code: string): string {

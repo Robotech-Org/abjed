@@ -57,7 +57,11 @@ export default function LoginPage() {
       router.push("/pricing");
     } catch (err: any) {
       setStatus("error");
-      setErrorMsg(getErrorMessage(err.code ?? err.message));
+      if (err.name === "SyntaxError") {
+        setErrorMsg(getErrorMessage("network_error"));
+      } else {
+        setErrorMsg(getErrorMessage(err.code ?? err.message));
+      }
     }
   };
 
