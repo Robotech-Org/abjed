@@ -10,5 +10,6 @@ export const ERROR_MESSAGES: Record<string, string> = {
 };
 
 export function getErrorMessage(code: string): string {
-  return ERROR_MESSAGES[code] ?? "Something went wrong. Please try again.";
+  if (!code) return "Something went wrong. Please try again. (Code missing)";
+  return ERROR_MESSAGES[code] ?? `Something went wrong. Please try again. (Raw code: ${code})`;
 }
