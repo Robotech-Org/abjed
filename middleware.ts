@@ -1,7 +1,7 @@
 // middleware.ts — at project root, not app/
 import { NextRequest, NextResponse } from "next/server";
 
-const PROTECTED_PREFIXES = ["/test"];
+const PROTECTED_PREFIXES = ["/checkout", "/pricing"];
 
 export function middleware(req: NextRequest) {
   const hasToken = req.cookies.has("accessToken");
@@ -14,6 +14,6 @@ export function middleware(req: NextRequest) {
   return NextResponse.next();
 }
 
-export const config = { matcher: [] };
+export const config = { matcher: [ "/pricing/:path*"] };
 
-//, "/pricing/:path*"
+//,
