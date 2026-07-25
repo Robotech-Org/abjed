@@ -37,8 +37,6 @@ export default function SuccessPage() {
     if (isVerifying) return;
 
     if (timeLeft <= 0) {
-     
-      //window.location.href = "/";
       router.push("/");
       return;
     }
@@ -55,40 +53,40 @@ export default function SuccessPage() {
 
   if (isVerifying) {
     return (
-      <div className="min-h-screen bg-[#FDF9F1] flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-[#2B4238]" />
+      <div className="min-h-screen bg-[#FDF9F1] dark:bg-slate-950 flex items-center justify-center transition-colors">
+        <Loader2 className="w-8 h-8 animate-spin text-[#2B4238] dark:text-white" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#FDF9F1] font-sans text-[#2B4238] flex flex-col items-center justify-between">
+    <div className="min-h-screen bg-[#FDF9F1] dark:bg-slate-950 font-sans text-[#2B4238] dark:text-slate-100 flex flex-col items-center justify-between transition-colors">
       <Navbar />
 
       {/* Main Content */}
-      <main className="flex-1 w-full flex items-center justify-center px-4 py-12">
-        <div className="bg-white rounded-[32px] p-10 md:p-14 max-w-xl w-full shadow-[0_8px_30px_rgb(0,0,0,0.04)] text-center flex flex-col items-center border border-neutral-100">
+      <main id="main-content" className="flex-1 w-full flex items-center justify-center px-4 py-12">
+        <div className="bg-white dark:bg-slate-900 rounded-[32px] p-10 md:p-14 max-w-xl w-full shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none text-center flex flex-col items-center border border-neutral-100 dark:border-slate-800 transition-colors">
           
-          <div className="w-16 h-16 bg-[#2B4238] rounded-full flex items-center justify-center mb-6 shadow-md border-4 border-white outline outline-1 outline-neutral-100 ring-4 ring-[#E8F0EA]">
+          <div className="w-16 h-16 bg-[#2B4238] dark:bg-green-600 rounded-full flex items-center justify-center mb-6 shadow-md border-4 border-white dark:border-slate-900 outline outline-1 outline-neutral-100 dark:outline-slate-700 ring-4 ring-[#E8F0EA] dark:ring-green-900/40">
             <Check className="w-8 h-8 text-white" strokeWidth={3} />
           </div>
           
-          <h1 className="text-3xl font-extrabold text-[#2B4238] mb-3 tracking-tight">
+          <h1 className="text-3xl font-extrabold text-[#2B4238] dark:text-white mb-3 tracking-tight">
             Payment Successful!
           </h1>
           
-          <p className="text-neutral-500 text-[15px] max-w-[320px] mx-auto leading-relaxed mb-10">
+          <p className="text-neutral-500 dark:text-slate-400 text-[15px] max-w-[320px] mx-auto leading-relaxed mb-10">
             Your account is upgraded. We are redirecting you back to the ABJAD Kids app...
           </p>
 
-          <div className="w-full bg-[#F4F1EA] rounded-2xl p-5 mb-6 text-left">
+          <div className="w-full bg-[#F4F1EA] dark:bg-slate-800 rounded-2xl p-5 mb-6 text-left transition-colors">
             <div className="flex justify-between items-center mb-3">
-              <span className="text-xs font-bold text-[#2B4238]">Opening your app</span>
-              <span className="text-xs font-bold text-[#2B4238]">{timeLeft}s</span>
+              <span className="text-xs font-bold text-[#2B4238] dark:text-slate-300">Opening your app</span>
+              <span className="text-xs font-bold text-[#2B4238] dark:text-slate-300">{timeLeft}s</span>
             </div>
-            <div className="h-3 w-full bg-white rounded-full overflow-hidden">
+            <div className="h-3 w-full bg-white dark:bg-slate-700 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-[#2B4238] rounded-full transition-all duration-1000 ease-linear"
+                className="h-full bg-[#2B4238] dark:bg-green-500 rounded-full transition-all duration-1000 ease-linear"
                 style={{ width: `${progressPercentage}%` }}
               ></div>
             </div>
@@ -96,24 +94,24 @@ export default function SuccessPage() {
 
           <button 
             onClick={() => router.push("/")}
-            className="w-full py-4 bg-[#2B4238] text-white font-bold rounded-xl hover:bg-[#1E3028] transition-colors shadow-sm"
+            className="w-full py-4 bg-[#2B4238] dark:bg-green-600 text-white font-bold rounded-xl hover:bg-[#1E3028] dark:hover:bg-green-500 transition-colors shadow-sm"
           >
             Return to Game Now
           </button>
           
-          <p className="text-[11px] text-neutral-400 mt-4">
+          <p className="text-[11px] text-neutral-400 dark:text-slate-500 mt-4">
             (Click here if you are not automatically redirected in {timeLeft} seconds)
           </p>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="w-full pb-8 pt-4 text-xs text-neutral-400 font-medium flex items-center justify-center gap-6">
-        <Link href="#" className="hover:text-neutral-600">Contact Support</Link>
-        <span className="w-1 h-1 rounded-full bg-neutral-300"></span>
-        <Link href="#" className="hover:text-neutral-600">Open in Browser</Link>
-        <span className="w-1 h-1 rounded-full bg-neutral-300"></span>
-        <Link href="#" className="hover:text-neutral-600">Privacy Policy</Link>
+      <footer className="w-full pb-8 pt-4 text-xs text-neutral-400 dark:text-slate-500 font-medium flex items-center justify-center gap-6">
+        <Link href="#" className="hover:text-neutral-600 dark:hover:text-white transition-colors">Contact Support</Link>
+        <span className="w-1 h-1 rounded-full bg-neutral-300 dark:bg-slate-600"></span>
+        <Link href="#" className="hover:text-neutral-600 dark:hover:text-white transition-colors">Open in Browser</Link>
+        <span className="w-1 h-1 rounded-full bg-neutral-300 dark:bg-slate-600"></span>
+        <Link href="#" className="hover:text-neutral-600 dark:hover:text-white transition-colors">Privacy Policy</Link>
       </footer>
     </div>
   );

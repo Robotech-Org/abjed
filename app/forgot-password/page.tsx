@@ -6,6 +6,7 @@ import Link from "next/link";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import { getErrorMessage } from "@/lib/errors";
+import { toast } from "sonner";
 
 const forgotSchema = z.object({
   email: z.string().email("Please enter a valid email address."),
@@ -16,7 +17,6 @@ type Status = "idle" | "submitting" | "success" | "error";
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
-  const [errorMsg, setErrorMsg] = useState("");
   const [fieldErrors, setFieldErrors] = useState<{ email?: string }>({});
   const [resetToken, setResetToken] = useState<string | null>(null);
 
@@ -35,7 +35,6 @@ export default function ForgotPasswordPage() {
     
     setFieldErrors({});
     setStatus("submitting");
-    setErrorMsg("");
     setResetToken(null);
     
     try {
@@ -58,60 +57,53 @@ export default function ForgotPasswordPage() {
     } catch (err: any) {
       setStatus("error");
       if (err.name === "SyntaxError") {
-        setErrorMsg(getErrorMessage("network_error"));
+        toast.error(getErrorMessage("network_error"));
       } else {
-        setErrorMsg(getErrorMessage(err.code ?? err.message));
+        toast.error(getErrorMessage(err.code ?? err.message));
       }
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#FDF9F1] font-sans text-[#2B4238] flex flex-col">
+    <div className="min-h-screen bg-[#FDF9F1] dark:bg-slate-950 font-sans text-[#2B4238] dark:text-slate-100 flex flex-col transition-colors duration-300">
       <Navbar />
 
       <main className="flex-1 flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12 lg:gap-24 px-6 pt-6 md:pt-12 pb-24 max-w-7xl mx-auto w-full">
         
         {/* Left Column: Context & Info */}
         <div className="flex-1 max-w-lg lg:max-w-xl w-full">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-neutral-200 text-neutral-600 text-[10px] font-bold uppercase tracking-widest mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-slate-900 border border-neutral-200 dark:border-slate-800 text-neutral-600 dark:text-slate-300 text-[10px] font-bold uppercase tracking-widest mb-6">
             <Lock className="w-3.5 h-3.5" />
             PARENT ACCESS
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 leading-[1.15] text-[#2B4238]">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 leading-[1.15] text-[#2B4238] dark:text-white">
             Reset your <br className="hidden md:block" />
             password
           </h1>
           
-          <p className="text-[#4A5D54] text-[15px] md:text-[17px] leading-relaxed mb-8">
+          <p className="text-[#4A5D54] dark:text-slate-400 text-[15px] md:text-[17px] leading-relaxed mb-8">
             Enter the email address associated with your parent account. If we find it in our system, we'll send you a secure link to create a new password.
           </p>
         </div>
 
         {/* Right Column: Card */}
         <div className="w-full max-w-[440px]">
-          <div className="bg-white rounded-[32px] p-6 md:p-8 border border-neutral-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+          <div className="bg-white dark:bg-slate-900 rounded-[32px] p-6 md:p-8 border border-neutral-100 dark:border-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none">
             <div className="mb-8 text-center md:text-left">
-              <h2 className="text-2xl font-bold text-[#2B4238] mb-2">Forgot Password</h2>
-              <p className="text-sm text-neutral-500">
+              <h2 className="text-2xl font-bold text-[#2B4238] dark:text-white mb-2">Forgot Password</h2>
+              <p className="text-sm text-neutral-500 dark:text-slate-400">
                 Let's get you back into your account.
               </p>
             </div>
 
-            {status === "error" && (
-              <div role="alert" className="mb-6 p-4 bg-red-50 rounded-xl border border-red-100 flex items-start gap-3">
-                <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
-                <p className="text-sm text-red-700">{errorMsg}</p>
-              </div>
-            )}
-
             {status === "success" ? (
               <div className="text-center py-4">
-                <div className="w-14 h-14 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-100">
-                  <CheckCircle2 className="w-7 h-7 text-green-600" />
+                <div className="w-14 h-14 bg-green-50 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-100 dark:border-green-800">
+                  <CheckCircle2 className="w-7 h-7 text-green-600 dark:text-green-400" />
                 </div>
-                <h3 className="text-xl font-bold text-[#2B4238] mb-2">Check your inbox</h3>
-                <p className="text-sm text-neutral-600 leading-relaxed mb-8">
+                <h3 className="text-xl font-bold text-[#2B4238] dark:text-white mb-2">Check your inbox</h3>
+                <p className="text-sm text-neutral-600 dark:text-slate-400 leading-relaxed mb-8">
                   If that email is registered, we've sent a reset link.
                 </p>
 
@@ -128,21 +120,22 @@ export default function ForgotPasswordPage() {
                   </div>
                 )}
 
-                <Link href="/login" className="text-sm font-bold text-[#2B4238] hover:underline">
+                <Link href="/login" className="text-sm font-bold text-[#2B4238] dark:text-green-500 hover:underline">
                   Return to login
                 </Link>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5" noValidate>
                 <div>
-                  <label className="block text-xs font-bold text-[#2B4238] mb-2">
+                  <label htmlFor="email" className="block text-xs font-bold text-[#2B4238] dark:text-slate-300 mb-2">
                     Email Address
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                      <Mail className="h-4 w-4 text-neutral-400" />
+                      <Mail className="h-4 w-4 text-neutral-400 dark:text-slate-500" />
                     </div>
                     <input
+                    id="email"
                       type="email"
                       value={email}
                       onChange={(e) => {
@@ -151,7 +144,7 @@ export default function ForgotPasswordPage() {
                       }}
                       placeholder="Enter your email"
                       aria-invalid={!!fieldErrors.email}
-                      className={`block w-full pl-10 pr-3 py-3.5 rounded-xl bg-[#F4F4F4] focus:bg-white sm:text-sm transition-colors outline-none border ${fieldErrors.email ? 'border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-500' : 'border-transparent focus:border-[#2B4238] focus:ring-1 focus:ring-[#2B4238]'}`}
+                      className={`block w-full pl-10 pr-3 py-3.5 rounded-xl bg-[#F4F4F4] dark:bg-slate-800 focus:bg-white dark:focus:bg-slate-950 sm:text-sm transition-colors outline-none border text-black dark:text-white ${fieldErrors.email ? 'border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-500' : 'border-transparent focus:border-[#2B4238] dark:focus:border-slate-600 focus:ring-1 focus:ring-[#2B4238] dark:focus:ring-slate-600'}`}
                     />
                   </div>
                   {fieldErrors.email && (
@@ -169,7 +162,7 @@ export default function ForgotPasswordPage() {
                 </button>
 
                 <div className="mt-8 text-center pt-2">
-                  <Link href="/login" className="text-sm font-bold text-[#2B4238] hover:underline">
+                  <Link href="/login" className="text-sm font-bold text-[#2B4238] dark:text-green-500 hover:underline">
                     Back to login
                   </Link>
                 </div>

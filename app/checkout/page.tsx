@@ -13,12 +13,12 @@ export default async function CheckoutPage({
 
   if (!planId) {
     return (
-      <div className="min-h-screen bg-[#FDF9F1] flex flex-col font-sans text-[#2B4238]">
+      <div className="min-h-screen bg-[#FDF9F1] dark:bg-slate-950 flex flex-col font-sans text-[#2B4238] dark:text-slate-100 transition-colors">
         <Navbar />
         <main className="flex-1 flex flex-col items-center justify-center px-4 text-center">
-          <h2 className="text-2xl font-bold mb-4">No plan selected</h2>
-          <p className="text-neutral-600 mb-8">Please select a plan to continue with your checkout.</p>
-          <Link href="/pricing" className="px-6 py-3 bg-[#2B4238] text-white font-bold rounded-xl hover:bg-[#1E3028] transition-colors">
+          <h2 className="text-2xl font-bold mb-4 dark:text-white">No plan selected</h2>
+          <p className="text-neutral-600 dark:text-slate-400 mb-8">Please select a plan to continue with your checkout.</p>
+          <Link href="/pricing" className="px-6 py-3 bg-[#2B4238] dark:bg-green-600 text-white font-bold rounded-xl hover:bg-[#1E3028] dark:hover:bg-green-500 transition-colors">
             View Subscription Plans
           </Link>
         </main>
@@ -45,11 +45,11 @@ export default async function CheckoutPage({
   const planInterval = selectedPlan?.name === "Super Learner" ? "Yearly" : (selectedPlan?.name === "Ultimate Learner" ? "Lifetime" : "Monthly");
 
   return (
-    <div className="min-h-screen bg-[#FDF9F1] font-sans text-[#2B4238] flex flex-col">
+    <div className="min-h-screen bg-[#FDF9F1] dark:bg-slate-950 font-sans text-[#2B4238] dark:text-slate-100 flex flex-col transition-colors duration-300">
       <Navbar />
 
       <main className="flex-1 w-full max-w-6xl mx-auto px-6 py-8 md:py-16">
-        <Link href="/pricing" className="inline-flex items-center gap-2 text-sm font-bold text-neutral-500 hover:text-[#2B4238] transition-colors mb-8 md:mb-12">
+        <Link href="/pricing" className="inline-flex items-center gap-2 text-sm font-bold text-neutral-500 dark:text-slate-400 hover:text-[#2B4238] dark:hover:text-white transition-colors mb-8 md:mb-12">
           <ArrowLeft className="w-4 h-4" />
           Back to plans
         </Link>
@@ -58,47 +58,47 @@ export default async function CheckoutPage({
           
           {/* Left Column: Order Summary */}
           <div className="flex-1 w-full max-w-xl">
-            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 text-[#2B4238]">
+            <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-8 text-[#2B4238] dark:text-white">
               Complete your <br />purchase
             </h1>
             
-            <div className="bg-white rounded-3xl p-6 md:p-8 border border-neutral-200 shadow-sm mb-8">
-              <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 mb-2">Order Summary</div>
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-neutral-200 dark:border-slate-800 shadow-sm mb-8 transition-colors">
+              <div className="text-[10px] font-bold uppercase tracking-widest text-neutral-500 dark:text-slate-400 mb-2">Order Summary</div>
               
-              <div className="flex justify-between items-start mb-6 pb-6 border-b border-neutral-100">
+              <div className="flex justify-between items-start mb-6 pb-6 border-b border-neutral-100 dark:border-slate-800">
                 <div>
-                  <h3 className="text-xl font-bold text-[#2B4238] mb-1">{planName}</h3>
-                  <p className="text-sm text-neutral-500 font-medium">{planInterval} access</p>
+                  <h3 className="text-xl font-bold text-[#2B4238] dark:text-white mb-1">{planName}</h3>
+                  <p className="text-sm text-neutral-500 dark:text-slate-400 font-medium">{planInterval} access</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-extrabold text-[#2B4238]">{planPrice}</div>
+                  <div className="text-2xl font-extrabold text-[#2B4238] dark:text-white">{planPrice}</div>
                 </div>
               </div>
 
               <div className="space-y-4 mb-2">
-                <h4 className="text-xs font-bold text-[#2B4238] uppercase tracking-wider mb-4">What's included</h4>
+                <h4 className="text-xs font-bold text-[#2B4238] dark:text-slate-300 uppercase tracking-wider mb-4">What's included</h4>
                 <div className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-600 shrink-0" strokeWidth={2.5} />
-                  <span className="text-sm font-medium text-neutral-700">100% ad-free, secure environment</span>
+                  <Check className="w-5 h-5 text-green-600 dark:text-green-400 shrink-0" strokeWidth={2.5} />
+                  <span className="text-sm font-medium text-neutral-700 dark:text-slate-300">100% ad-free, secure environment</span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-600 shrink-0" strokeWidth={2.5} />
-                  <span className="text-sm font-medium text-neutral-700">Unlimited access to learning quests</span>
+                  <Check className="w-5 h-5 text-green-600 dark:text-green-400 shrink-0" strokeWidth={2.5} />
+                  <span className="text-sm font-medium text-neutral-700 dark:text-slate-300">Unlimited access to learning quests</span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-600 shrink-0" strokeWidth={2.5} />
-                  <span className="text-sm font-medium text-neutral-700">Detailed parent progress reports</span>
+                  <Check className="w-5 h-5 text-green-600 dark:text-green-400 shrink-0" strokeWidth={2.5} />
+                  <span className="text-sm font-medium text-neutral-700 dark:text-slate-300">Detailed parent progress reports</span>
                 </div>
               </div>
             </div>
 
-            <div className="flex gap-4 items-center bg-[#F4F1EA] p-5 rounded-2xl border border-[#EBE5D9]">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm">
-                <Shield className="w-5 h-5 text-[#2B4238]" />
+            <div className="flex gap-4 items-center bg-[#F4F1EA] dark:bg-slate-800 p-5 rounded-2xl border border-[#EBE5D9] dark:border-slate-700 transition-colors">
+              <div className="w-10 h-10 rounded-full bg-white dark:bg-slate-900 flex items-center justify-center shrink-0 shadow-sm">
+                <Shield className="w-5 h-5 text-[#2B4238] dark:text-green-400" />
               </div>
               <div>
-                <h4 className="text-sm font-bold text-[#2B4238] mb-0.5">Secure Transaction</h4>
-                <p className="text-xs text-neutral-600 leading-relaxed">Your payment is encrypted and securely processed by telebirr. Cancel anytime from your parent portal.</p>
+                <h4 className="text-sm font-bold text-[#2B4238] dark:text-white mb-0.5">Secure Transaction</h4>
+                <p className="text-xs text-neutral-600 dark:text-slate-400 leading-relaxed">Your payment is encrypted and securely processed by telebirr. Cancel anytime from your parent portal.</p>
               </div>
             </div>
           </div>
@@ -106,13 +106,13 @@ export default async function CheckoutPage({
           {/* Right Column: Payment Details */}
           <div className="w-full lg:w-[440px] shrink-0 lg:pt-4">
             <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-[#2B4238] flex items-center gap-2">
-                <CreditCard className="w-5 h-5" />
+              <h2 className="text-lg font-bold text-[#2B4238] dark:text-white flex items-center gap-2">
+                <CreditCard className="w-5 h-5 text-neutral-500 dark:text-slate-400" />
                 Payment Details
               </h2>
               <div className="flex items-center gap-1">
-                <Lock className="w-3.5 h-3.5 text-green-600" />
-                <span className="text-xs font-bold text-green-700 uppercase tracking-wider">Secure</span>
+                <Lock className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />
+                <span className="text-xs font-bold text-green-700 dark:text-green-500 uppercase tracking-wider">Secure</span>
               </div>
             </div>
             
