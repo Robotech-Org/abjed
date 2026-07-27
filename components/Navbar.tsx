@@ -89,13 +89,13 @@ export default function Navbar() {
         `}>
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <Image 
+            {/* <Image 
               src="/ab.svg" 
               alt="ABJAD Kids"
               width={32}
               height={32}
               className="w-8 h-8 object-contain"
-            />
+            /> */}
             <Link className="font-bold text-lg tracking-tight text-[#2B4238] dark:text-white" href={"/"}>
               ABJAD Kids
             </Link>
