@@ -3,7 +3,10 @@ import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import Typewriter from "@/components/Typewriter";
 import Footer from "@/components/Footer";
-export default function Home() {
+import { getTranslations } from "next-intl/server";
+
+export default async function Home() {
+  const t = await getTranslations("Home");
   return (
     <div className="min-h-screen bg-[#FDF9F1] dark:bg-slate-950 font-sans text-[#2B4238] dark:text-slate-100 flex flex-col transition-colors duration-300">
       <Navbar />
@@ -27,9 +30,9 @@ export default function Home() {
                 <div className="w-20 h-20 md:w-24 md:h-24 bg-yellow-400 rounded-3xl flex items-center justify-center mb-4 md:mb-6 shadow-sm">
                   <Star className="w-10 h-10 md:w-12 md:h-12 text-yellow-600 fill-yellow-600" />
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold text-[#2B4238] dark:text-white mb-2 md:mb-4">Your mascot space</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-[#2B4238] dark:text-white mb-2 md:mb-4">{t("mascotTitle")}</h3>
                 <p className="text-neutral-500 dark:text-slate-400 max-w-[280px] md:max-w-sm leading-relaxed text-xs md:text-sm">
-                  A large welcoming area for the yellow ABJAD Kids mascot to sit beside the hero message and make the page feel instantly playful and familiar.
+                  {t("mascotDesc")}
                 </p>
               </div>
             </div>
@@ -39,23 +42,23 @@ export default function Home() {
           <div className="w-full md:flex-1 max-w-xl md:order-first">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-slate-900 md:bg-[#F3EFE6] md:dark:bg-slate-800 border border-neutral-200 dark:border-slate-700 md:border-transparent text-neutral-600 dark:text-slate-300 text-[10px] font-bold uppercase tracking-wider mb-3 transition-colors">
               <Shield className="w-3.5 h-3.5" />
-              AD-FREE AND SAFE FOR KIDS
+              {t("adFree")}
             </div>
             
             <h3 className="text-[32px] leading-[1.1] md:text-5xl lg:text-[44px] font-extrabold tracking-tight md:mb-4 text-[#2B4238] dark:text-white min-h-[110px] md:min-h-[150px] max-w-[420px] md:max-w-[500px]">
-              <Typewriter text="Master the Arabic Alphabet through Play!" speed={90} />
+              <Typewriter text={t("heroTitle")} speed={90} />
             </h3>
             <p className="text-[#4A5D54] dark:text-slate-400 text-[15px] md:text-lg leading-relaxed mb-8 md:mb-10">
-              ABJAD Kids helps children discover Arabic letters with joyful mini-games, kid-safe learning moments, and a parent-friendly experience built to support progress at every step.
+              {t("heroDesc")}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 ">
               <button className="w-full sm:w-auto flex justify-center items-center gap-2 px-8 py-4 bg-[#2B4238] dark:bg-green-600 text-white rounded-full font-bold hover:bg-[#1E3028] dark:hover:bg-green-500 transition-all shadow-sm hover:scale-[1.02]">
-                Download the App
+                {t("downloadApp")}
               </button>
               <div className="hidden sm:flex items-center gap-2 px-5 py-3 bg-white dark:bg-slate-900 rounded-full text-sm font-bold text-[#2B4238] dark:text-slate-200 border border-neutral-100 dark:border-slate-800 shadow-sm transition-colors">
                 <CheckCircle2 className="w-4 h-4 text-green-500" />
-                Parent-approved learning flow
+                {t("parentApproved")}
               </div>
             </div>
           </div>
@@ -68,9 +71,9 @@ export default function Home() {
             <div className="w-12 h-12 bg-[#FDF9F1] dark:bg-slate-800 rounded-full flex items-center justify-center mb-6">
               <Gamepad2 className="w-6 h-6 text-[#2B4238] dark:text-green-400" strokeWidth={1.5} />
             </div>
-            <h4 className="text-lg font-bold text-[#2B4238] dark:text-white mb-3">Interactive Mini-Games</h4>
+            <h4 className="text-lg font-bold text-[#2B4238] dark:text-white mb-3">{t("feature1Title")}</h4>
             <p className="text-[#4A5D54] dark:text-slate-400 text-sm leading-relaxed">
-              Children learn each Arabic letter through engaging games that make education feel like pure fun.
+              {t("feature1Desc")}
             </p>
           </div>
 
@@ -78,9 +81,9 @@ export default function Home() {
             <div className="w-12 h-12 bg-[#FDF9F1] dark:bg-slate-800 rounded-full flex items-center justify-center mb-6">
               <Shield className="w-6 h-6 text-[#2B4238] dark:text-green-400" strokeWidth={1.5} />
             </div>
-            <h4 className="text-lg font-bold text-[#2B4238] dark:text-white mb-3">100% Kid Safe (No Ads)</h4>
+            <h4 className="text-lg font-bold text-[#2B4238] dark:text-white mb-3">{t("feature2Title")}</h4>
             <p className="text-[#4A5D54] dark:text-slate-400 text-sm leading-relaxed">
-              Every lesson is ad-free, distraction-free, and locked behind our parent portal for maximum security.
+              {t("feature2Desc")}
             </p>
           </div>
 
@@ -88,9 +91,9 @@ export default function Home() {
             <div className="w-12 h-12 bg-[#FDF9F1] dark:bg-slate-800 rounded-full flex items-center justify-center mb-6">
               <BarChart3 className="w-6 h-6 text-[#2B4238] dark:text-green-400" strokeWidth={1.5} />
             </div>
-            <h4 className="text-lg font-bold text-[#2B4238] dark:text-white mb-3">Parent Progress Tracking</h4>
+            <h4 className="text-lg font-bold text-[#2B4238] dark:text-white mb-3">{t("feature3Title")}</h4>
             <p className="text-[#4A5D54] dark:text-slate-400 text-sm leading-relaxed">
-              Parents can monitor letter recognition and overall progress through simple, automated reports.
+              {t("feature3Desc")}
             </p>
           </div>
         </div>

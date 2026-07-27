@@ -22,7 +22,7 @@ export default function Typewriter({ text, speed = 60 }: { text: string, speed?:
   return (
     <>
       {displayedText}
-      <span className="animate-pulse border-r-4 border-[#2B4238] ml-1 inline-block h-[0.8em] align-middle -mt-2"></span>
+      <span className="animate-pulse border-r-4 border-[#2B4238] ms-1 inline-block h-[0.8em] align-middle -mt-2"></span>
     </>
   );
 }

@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE
+.idea/
+.vscode/*.log
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# next build cache (prevents stale route types)
+.next/types/routes.d.ts

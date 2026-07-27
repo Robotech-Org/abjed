@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Check, Loader2 } from "lucide-react";
+import { Check, Loader2, CheckCircle, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbar";
+import { useTranslations } from "next-intl";
 
 export default function SuccessPage() {
+  const t = useTranslations("Success");
+  const tc = useTranslations("Common");
   const router = useRouter();
   const [timeLeft, setTimeLeft] = useState(5);
   const [isVerifying, setIsVerifying] = useState(true);
@@ -48,7 +51,6 @@ export default function SuccessPage() {
     return () => clearInterval(timer);
   }, [timeLeft, isVerifying, router]);
 
-  // Calculate progress bar width percentage
   const progressPercentage = ((5 - timeLeft) / 5) * 100;
 
   if (isVerifying) {
@@ -63,25 +65,24 @@ export default function SuccessPage() {
     <div className="min-h-screen bg-[#FDF9F1] dark:bg-slate-950 font-sans text-[#2B4238] dark:text-slate-100 flex flex-col items-center justify-between transition-colors">
       <Navbar />
 
-      {/* Main Content */}
       <main id="main-content" className="flex-1 w-full flex items-center justify-center px-4 py-12">
-        <div className="bg-white dark:bg-slate-900 rounded-[32px] p-10 md:p-14 max-w-xl w-full shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none text-center flex flex-col items-center border border-neutral-100 dark:border-slate-800 transition-colors">
+        <div className="bg-white dark:bg-slate-900 rounded-[32px] p-8 md:p-12 text-center max-w-lg mx-auto border border-neutral-200 dark:border-slate-800 shadow-sm transition-colors mt-8">
           
-          <div className="w-16 h-16 bg-[#2B4238] dark:bg-green-600 rounded-full flex items-center justify-center mb-6 shadow-md border-4 border-white dark:border-slate-900 outline outline-1 outline-neutral-100 dark:outline-slate-700 ring-4 ring-[#E8F0EA] dark:ring-green-900/40">
-            <Check className="w-8 h-8 text-white" strokeWidth={3} />
+          <div className="w-20 h-20 bg-green-50 dark:bg-green-900/30 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-sm">
+            <CheckCircle className="w-10 h-10 text-green-500" strokeWidth={2.5} />
           </div>
           
-          <h1 className="text-3xl font-extrabold text-[#2B4238] dark:text-white mb-3 tracking-tight">
-            Payment Successful!
+          <h1 className="text-3xl font-extrabold text-[#2B4238] dark:text-white mb-4 tracking-tight">
+            {t("paymentSuccess")}
           </h1>
           
-          <p className="text-neutral-500 dark:text-slate-400 text-[15px] max-w-[320px] mx-auto leading-relaxed mb-10">
-            Your account is upgraded. We are redirecting you back to the ABJAD Kids app...
+          <p className="text-neutral-600 dark:text-slate-400 leading-relaxed mb-10 max-w-sm mx-auto">
+            {t("successDesc")}
           </p>
 
-          <div className="w-full bg-[#F4F1EA] dark:bg-slate-800 rounded-2xl p-5 mb-6 text-left transition-colors">
+          <div className="w-full bg-[#F4F1EA] dark:bg-slate-800 rounded-2xl p-5 mb-6 text-start transition-colors">
             <div className="flex justify-between items-center mb-3">
-              <span className="text-xs font-bold text-[#2B4238] dark:text-slate-300">Opening your app</span>
+              <span className="text-xs font-bold text-[#2B4238] dark:text-slate-300">{t("openingApp")}</span>
               <span className="text-xs font-bold text-[#2B4238] dark:text-slate-300">{timeLeft}s</span>
             </div>
             <div className="h-3 w-full bg-white dark:bg-slate-700 rounded-full overflow-hidden">
@@ -96,22 +97,21 @@ export default function SuccessPage() {
             onClick={() => router.push("/")}
             className="w-full py-4 bg-[#2B4238] dark:bg-green-600 text-white font-bold rounded-xl hover:bg-[#1E3028] dark:hover:bg-green-500 transition-colors shadow-sm"
           >
-            Return to Game Now
+            {t("returnToGame")}
           </button>
           
           <p className="text-[11px] text-neutral-400 dark:text-slate-500 mt-4">
-            (Click here if you are not automatically redirected in {timeLeft} seconds)
+            {t("autoRedirect", { timeLeft })}
           </p>
         </div>
       </main>
 
-      {/* Footer */}
       <footer className="w-full pb-8 pt-4 text-xs text-neutral-400 dark:text-slate-500 font-medium flex items-center justify-center gap-6">
-        <Link href="#" className="hover:text-neutral-600 dark:hover:text-white transition-colors">Contact Support</Link>
+        <Link href="#" className="hover:text-neutral-600 dark:hover:text-white transition-colors">{tc("contactSupport")}</Link>
         <span className="w-1 h-1 rounded-full bg-neutral-300 dark:bg-slate-600"></span>
-        <Link href="#" className="hover:text-neutral-600 dark:hover:text-white transition-colors">Open in Browser</Link>
+        <Link href="#" className="hover:text-neutral-600 dark:hover:text-white transition-colors">{tc("openInBrowser")}</Link>
         <span className="w-1 h-1 rounded-full bg-neutral-300 dark:bg-slate-600"></span>
-        <Link href="#" className="hover:text-neutral-600 dark:hover:text-white transition-colors">Privacy Policy</Link>
+        <Link href="#" className="hover:text-neutral-600 dark:hover:text-white transition-colors">{tc("privacyPolicy")}</Link>
       </footer>
     </div>
   );

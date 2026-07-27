@@ -8,7 +8,7 @@
 }
 
 body {
-  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-family: var(--font-geist-sans), var(--font-noto-arabic), var(--font-noto-ethiopic), Arial, sans-serif;
 }
 
 @keyframes shimmer {
@@ -20,6 +20,19 @@ body {
   }
 }
 
+@keyframes shimmer-rtl {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
 .animate-shimmer {
   animation: shimmer 2s infinite;
+}
+
+html[dir="rtl"] .animate-shimmer {
+  animation-name: shimmer-rtl;
 }

@@ -1,7 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { setTokenCookies } from "@/lib/cookies";
 
+const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+
+function isConfigured(): boolean {
+  return !!clientId && clientId !== "xxxxxxxx" && clientId.length > 10;
+}
+
 export async function POST(req: NextRequest) {
+  if (!isConfigured()) {
+    return NextResponse.json(
+      { error: "google_signin_not_configured" },
+      { status: 501 },
+    );
+  }
+
   try {
     const { idToken } = await req.json();
 

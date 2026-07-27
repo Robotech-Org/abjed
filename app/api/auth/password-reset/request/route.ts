@@ -16,9 +16,13 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: data.error }, { status: backendRes.status });
     }
 
-    // Strip resetToken in production
-    if (process.env.NODE_ENV === "production" && data.resetToken) {
-      delete data.resetToken;
+    // Strip resetToken unless explicitly allowed for local dev testing
+    if (data.resetToken) {
+      const allowDevToken = process.env.ALLOW_DEV_RESET_TOKEN === "true";
+      const isDev = process.env.NODE_ENV !== "production";
+      if (!(isDev && allowDevToken)) {
+        delete data.resetToken;
+      }
     }
 
     return NextResponse.json(data, { status: 200 });

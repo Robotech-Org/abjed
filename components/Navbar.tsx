@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useTransition } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Menu, X, GraduationCap, Ticket, Settings, LogOut } from "lucide-react";
+import { usePathname, useRouter } from "@/src/i18n/routing";
+import { useLocale, useTranslations } from "next-intl";
+import { Menu, X, GraduationCap, Ticket, Settings, LogOut, Globe } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 import Image from "next/image";
 
@@ -16,6 +17,15 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const locale = useLocale();
+  const t = useTranslations("Navbar");
+
+  function onLanguageChange(newLocale: string) {
+    startTransition(() => {
+      router.replace(pathname, { locale: newLocale });
+    });
+  }
 
   useEffect(() => {
     const loggedIn = document.cookie.includes("isLoggedIn=true");
@@ -23,11 +33,18 @@ export default function Navbar() {
 
     if (loggedIn) {
       fetch("/api/auth/me")
-        .then(res => res.json())
-        .then(data => {
+        .then(async (res) => {
+          if (!res.ok) throw new Error("Unauthorized");
+          return res.json();
+        })
+        .then((data) => {
           if (data.user) setUser(data.user);
         })
-        .catch(() => {});
+        .catch(() => {
+          fetch("/api/auth/logout", { method: "POST" }).catch(() => {});
+          setIsLoggedIn(false);
+          setUser(null);
+        });
     }
   }, []);
 
@@ -72,15 +89,13 @@ export default function Navbar() {
         `}>
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-yellow-400 rounded-md flex items-center justify-center font-bold text-white shadow-sm">
-              <Image 
-  src="/abjad.svg" 
-  alt="ABJAD Kids logo"
-  width={32} 
-  height={32} 
-  className="w-full h-full object-contain"
-/>
-            </div>
+            <Image 
+              src="/ab.svg" 
+              alt="ABJAD Kids"
+              width={32}
+              height={32}
+              className="w-8 h-8 object-contain"
+            />
             <Link className="font-bold text-lg tracking-tight text-[#2B4238] dark:text-white" href={"/"}>
               ABJAD Kids
             </Link>
@@ -96,9 +111,9 @@ export default function Navbar() {
                   : 'text-[#4A5D54] dark:text-slate-300 hover:text-[#2B4238] dark:hover:text-white'
               }`}
             >
-              Home
+              {t("home")}
               {pathname === '/' && (
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-yellow-400 rounded-full"></span>
+                <span className="absolute -bottom-1 start-0 w-full h-0.5 bg-yellow-400 rounded-full"></span>
               )}
             </Link>
             <Link 
@@ -109,11 +124,26 @@ export default function Navbar() {
                   : 'text-[#4A5D54] dark:text-slate-300 hover:text-[#2B4238] dark:hover:text-white'
               }`}
             >
-              Subscription
+              {t("subscription")}
               {pathname === '/pricing' && (
-                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-yellow-400 rounded-full"></span>
+                <span className="absolute -bottom-1 start-0 w-full h-0.5 bg-yellow-400 rounded-full"></span>
               )}
             </Link>
+            
+            <div className="relative group">
+              <button className="flex items-center gap-1.5 px-2 py-1 text-[#4A5D54] dark:text-slate-300 hover:text-[#2B4238] dark:hover:text-white transition-colors">
+                <Globe className="w-4 h-4" />
+                <span className="uppercase text-xs font-bold">{locale}</span>
+              </button>
+              <div className="absolute end-0 top-full mt-2 w-32 bg-white dark:bg-slate-900 rounded-xl shadow-lg border border-neutral-100 dark:border-slate-800 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+                <div className="p-2 flex flex-col">
+                  <button onClick={() => onLanguageChange('en')} disabled={isPending} className="text-start px-3 py-2 text-sm text-neutral-600 dark:text-slate-300 hover:bg-neutral-50 dark:hover:bg-slate-800 rounded-lg">English</button>
+                  <button onClick={() => onLanguageChange('ar')} disabled={isPending} className="text-start px-3 py-2 text-sm text-neutral-600 dark:text-slate-300 hover:bg-neutral-50 dark:hover:bg-slate-800 rounded-lg">العربية</button>
+                  <button onClick={() => onLanguageChange('am')} disabled={isPending} className="text-start px-3 py-2 text-sm text-neutral-600 dark:text-slate-300 hover:bg-neutral-50 dark:hover:bg-slate-800 rounded-lg">አማርኛ</button>
+                </div>
+              </div>
+            </div>
+
             <ThemeToggle />
             {isLoggedIn ? (
               <div className="relative">
@@ -129,18 +159,18 @@ export default function Navbar() {
                 {isDropdownOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setIsDropdownOpen(false)} />
-                    <div className="absolute right-0 mt-3 w-64 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 dark:border-slate-800/50 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="absolute end-0 mt-3 w-64 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 dark:border-slate-800/50 z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                       <div className="px-4 py-4 border-b border-neutral-100/50 dark:border-slate-800/50 bg-neutral-50/50 dark:bg-slate-800/30">
-                        <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1">Signed in as</p>
-                        <p className="text-sm font-bold text-[#2B4238] dark:text-white truncate">{user?.email || 'Loading...'}</p>
+                        <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1">{t("signedInAs")}</p>
+                        <p className="text-sm font-bold text-[#2B4238] dark:text-white truncate">{user?.email || t("loading")}</p>
                       </div>
                       <div className="p-2">
                         <button 
                           onClick={() => { setIsDropdownOpen(false); setIsLogoutModalOpen(true); }}
-                          className="w-full flex items-center gap-3 px-3 py-3 text-sm font-bold text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-colors text-left"
+                          className="w-full flex items-center gap-3 px-3 py-3 text-sm font-bold text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 rounded-xl transition-colors text-start"
                         >
                           <LogOut className="w-4 h-4" />
-                          Log out
+                          {t("logout")}
                         </button>
                       </div>
                     </div>
@@ -152,14 +182,14 @@ export default function Navbar() {
                 href="/login" 
                 className="px-5 py-2.5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white rounded-full hover:from-yellow-500 hover:to-yellow-600 transition-all shadow-md hover:shadow-lg font-bold hover:scale-105 active:scale-95"
               >
-                Parent Portal
+                {t("parentPortal")}
               </Link>
             )}
           </div>
 
           {/* Mobile Hamburger */}
           <button 
-            className="md:hidden p-2 -mr-2 text-[#2B4238] dark:text-white hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
+            className="md:hidden p-2 -me-2 text-[#2B4238] dark:text-white hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-colors"
             onClick={() => setIsOpen(true)}
           >
             <Menu className="w-6 h-6" />
@@ -177,8 +207,8 @@ export default function Navbar() {
 
       {/* Mobile Drawer Menu - Also Glassmorphism */}
       <div 
-        className={`fixed top-0 right-0 h-full w-[85%] max-w-[320px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl z-50 transform transition-transform duration-300 ease-in-out md:hidden flex flex-col shadow-2xl ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 end-0 h-full w-[85%] max-w-[320px] bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl z-50 transition-transform duration-300 ease-in-out md:hidden flex flex-col shadow-2xl ${
+          isOpen ? "translate-x-0" : (locale === "ar" ? "-translate-x-full" : "translate-x-full")
         }`}
       >
         <div className="flex justify-end p-6">
@@ -192,10 +222,10 @@ export default function Navbar() {
             {isLoggedIn ? (user?.email?.[0]?.toUpperCase() || 'P') : 'L'}
           </div>
           <h2 className="text-xl font-bold text-[#2B4238] dark:text-white mb-1">
-            {isLoggedIn ? 'Welcome Back!' : 'Hi, Learner!'}
+            {isLoggedIn ? t("welcomeBack") : t("hiLearner")}
           </h2>
           <p className="text-sm text-neutral-500 dark:text-slate-400 truncate w-full text-center">
-            {isLoggedIn ? (user?.email || 'Loading account...') : 'Ready for a fun day?'}
+            {isLoggedIn ? (user?.email || t("loading")) : t("readyForFun")}
           </p>
         </div>
 
@@ -210,7 +240,7 @@ export default function Navbar() {
             }`}
           >
             <GraduationCap className="w-5 h-5" />
-            Home
+            {t("home")}
           </Link>
           <Link 
             href="/pricing" 
@@ -222,7 +252,7 @@ export default function Navbar() {
             }`}
           >
             <Ticket className="w-5 h-5" />
-            Subscription
+            {t("subscription")}
           </Link>
           <Link 
             href="/login" 
@@ -234,7 +264,7 @@ export default function Navbar() {
             }`}
           >
             <Settings className="w-5 h-5" />
-            Parent Portal
+            {t("parentPortal")}
           </Link>
           {isLoggedIn && (
             <button 
@@ -242,12 +272,20 @@ export default function Navbar() {
               className="flex w-full items-center gap-4 px-4 py-3 rounded-xl font-bold transition-all text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
             >
               <LogOut className="w-5 h-5" />
-              Logout
+              {t("logout")}
             </button>
           )}
-          <div className="pt-4 mt-2 border-t border-neutral-100/50 dark:border-slate-800/50">
-            <div className="flex items-center justify-between px-4 py-2">
-              <span className="text-sm font-bold text-[#2B4238] dark:text-slate-300">Appearance</span>
+          <div className="pt-4 mt-2 border-t border-neutral-100/50 dark:border-slate-800/50 space-y-4">
+            <div className="flex flex-col gap-2 px-4">
+              <span className="text-sm font-bold text-[#2B4238] dark:text-slate-300">Language</span>
+              <div className="flex gap-2">
+                <button onClick={() => onLanguageChange('en')} disabled={isPending} className={`flex-1 py-2 text-xs font-bold rounded-lg border ${locale === 'en' ? 'bg-yellow-400 text-yellow-900 border-yellow-400' : 'border-neutral-200 dark:border-slate-700 hover:bg-neutral-50 dark:hover:bg-slate-800'}`}>EN</button>
+                <button onClick={() => onLanguageChange('ar')} disabled={isPending} className={`flex-1 py-2 text-xs font-bold rounded-lg border ${locale === 'ar' ? 'bg-yellow-400 text-yellow-900 border-yellow-400' : 'border-neutral-200 dark:border-slate-700 hover:bg-neutral-50 dark:hover:bg-slate-800'}`}>AR</button>
+                <button onClick={() => onLanguageChange('am')} disabled={isPending} className={`flex-1 py-2 text-xs font-bold rounded-lg border ${locale === 'am' ? 'bg-yellow-400 text-yellow-900 border-yellow-400' : 'border-neutral-200 dark:border-slate-700 hover:bg-neutral-50 dark:hover:bg-slate-800'}`}>AM</button>
+              </div>
+            </div>
+            <div className="flex items-center justify-between px-4 py-2 border-t border-neutral-100/50 dark:border-slate-800/50 pt-4">
+              <span className="text-sm font-bold text-[#2B4238] dark:text-slate-300">{t("appearance")}</span>
               <ThemeToggle />
             </div>
           </div>
@@ -274,24 +312,24 @@ export default function Navbar() {
             <div className="w-12 h-12 bg-red-50/80 dark:bg-red-950/30 rounded-full flex items-center justify-center mb-4 mx-auto md:mx-0">
               <LogOut className="w-6 h-6 text-red-600 dark:text-red-400" />
             </div>
-            <h3 className="text-xl font-bold text-[#2B4238] dark:text-white mb-2 text-center md:text-left">
-              Ready to leave?
+            <h3 className="text-xl font-bold text-[#2B4238] dark:text-white mb-2 text-center md:text-start">
+              {t("readyToLeave")}
             </h3>
-            <p className="text-[#4A5D54] dark:text-slate-400 text-sm mb-8 text-center md:text-left leading-relaxed">
-              Are you sure you want to log out of your parent account?
+            <p className="text-[#4A5D54] dark:text-slate-400 text-sm mb-8 text-center md:text-start leading-relaxed">
+              {t("logoutConfirm")}
             </p>
             <div className="flex flex-col-reverse md:flex-row gap-3">
               <button 
                 onClick={() => setIsLogoutModalOpen(false)}
                 className="w-full px-4 py-3 text-sm font-bold text-[#4A5D54] dark:text-slate-300 bg-[#F4F4F4]/80 dark:bg-slate-800/80 hover:bg-[#E5E5E5] dark:hover:bg-slate-700 rounded-xl transition-colors backdrop-blur-sm"
               >
-                Cancel
+                {t("cancel")}
               </button>
               <button 
                 onClick={handleLogout}
                 className="w-full px-4 py-3 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-xl transition-colors shadow-lg hover:shadow-xl"
               >
-                Log Out
+                {t("logout")}
               </button>
             </div>
           </div>

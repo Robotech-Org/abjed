@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, AlertCircle, Smartphone, Phone, ShieldCheck } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { getErrorMessage } from "@/lib/errors";
 
 type Status =
@@ -17,6 +18,8 @@ const MOBILE_PATTERN = /^(09\d{8}|2519\d{8})$/;
 
 export default function PaymentModal({ planId }: { planId: string }) {
   const router = useRouter();
+  const t = useTranslations("Checkout");
+  const tErrors = useTranslations("Errors");
   const [status, setStatus] = useState<Status>("collecting-phone");
   const [mobile, setMobile] = useState("");
   const [mobileError, setMobileError] = useState("");
@@ -32,7 +35,7 @@ export default function PaymentModal({ planId }: { planId: string }) {
 
   function validateMobile() {
     if (!MOBILE_PATTERN.test(mobile)) {
-      setMobileError("Enter a valid phone: 09XXXXXXXX or 2519XXXXXXXX");
+      setMobileError(t("phoneValidation"));
       return false;
     }
     setMobileError("");
@@ -66,7 +69,7 @@ export default function PaymentModal({ planId }: { planId: string }) {
       }
       pollForActive();
     } catch (err: any) {
-      setError(getErrorMessage(err.code ?? err.message));
+      setError(getErrorMessage(err.code ?? err.message, tErrors));
       setStatus("failed");
     }
   }
@@ -107,8 +110,8 @@ export default function PaymentModal({ planId }: { planId: string }) {
             <div className="w-14 h-14 bg-blue-50 dark:bg-blue-900/40 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-blue-100 dark:border-blue-800 shadow-sm">
               <Smartphone className="w-7 h-7 text-blue-600 dark:text-blue-400" strokeWidth={2} />
             </div>
-            <h3 className="text-xl font-extrabold text-[#2B4238] dark:text-white tracking-tight">telebirr Payment</h3>
-            <p className="text-sm text-neutral-500 dark:text-slate-400 mt-2 font-medium">Enter your mobile money number</p>
+            <h3 className="text-xl font-extrabold text-[#2B4238] dark:text-white tracking-tight">{t("telebirrPayment")}</h3>
+            <p className="text-sm text-neutral-500 dark:text-slate-400 mt-2 font-medium">{t("enterMobileMoney")}</p>
           </div>
 
           <form onSubmit={handleSubmit} noValidate className="space-y-5">
@@ -117,10 +120,10 @@ export default function PaymentModal({ planId }: { planId: string }) {
                 htmlFor="mobile"
                 className="block text-[13px] font-bold text-[#2B4238] dark:text-slate-300 uppercase tracking-wide mb-2"
               >
-                Phone Number
+                {t("phoneNumber")}
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 start-0 ps-4 flex items-center pointer-events-none">
                   <Phone className="h-4 w-4 text-neutral-400 dark:text-slate-500" />
                 </div>
                 <input
@@ -131,10 +134,10 @@ export default function PaymentModal({ planId }: { planId: string }) {
                     setMobile(e.target.value);
                     if (mobileError) setMobileError("");
                   }}
-                  placeholder="09XXXXXXXX"
+                  placeholder={t("phonePlaceholder")}
                   aria-invalid={!!mobileError}
                   aria-describedby={mobileError ? "mobile-error" : undefined}
-                  className={`block w-full pl-11 pr-4 text-gray-900 dark:text-white py-3.5 rounded-xl bg-[#F4F4F4] dark:bg-slate-800 focus:bg-white dark:focus:bg-slate-950 text-sm font-medium outline-none transition-all duration-200 border ${
+                  className={`block w-full ps-11 pe-4 text-gray-900 dark:text-white py-3.5 rounded-xl bg-[#F4F4F4] dark:bg-slate-800 focus:bg-white dark:focus:bg-slate-950 text-sm font-medium outline-none transition-all duration-200 border ${
                     mobileError
                       ? "border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-500/10"
                       : "border-transparent focus:border-blue-500 dark:focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10"
@@ -157,12 +160,12 @@ export default function PaymentModal({ planId }: { planId: string }) {
               {status === "submitting" ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  Requesting payment...
+                  {t("requestingPayment")}
                 </>
               ) : (
                 <>
                   <ShieldCheck className="w-4 h-4 text-green-400" />
-                  Pay with telebirr
+                  {t("payWithTelebirr")}
                 </>
               )}
             </button>
@@ -179,13 +182,13 @@ export default function PaymentModal({ planId }: { planId: string }) {
               <Smartphone className="w-8 h-8 text-blue-500 dark:text-blue-400 animate-pulse" strokeWidth={1.5} />
             </div>
           </div>
-          <h3 className="text-xl font-extrabold text-[#2B4238] dark:text-white mb-2 tracking-tight">Check your phone</h3>
+          <h3 className="text-xl font-extrabold text-[#2B4238] dark:text-white mb-2 tracking-tight">{t("checkYourPhone")}</h3>
           <p className="text-sm text-neutral-500 dark:text-slate-400 leading-relaxed max-w-[260px] mx-auto font-medium">
-            We've sent a secure payment prompt to your phone. Please enter your PIN to approve.
+            {t("paymentPromptDesc")}
           </p>
           <div className="mt-8 inline-flex items-center gap-2 text-xs font-bold text-neutral-400 dark:text-slate-500 uppercase tracking-widest bg-neutral-50 dark:bg-slate-800 px-4 py-2 rounded-full">
             <Loader2 className="w-3.5 h-3.5 animate-spin" />
-            Awaiting Confirmation
+            {t("awaitingConfirmation")}
           </div>
         </div>
       )}
@@ -196,18 +199,18 @@ export default function PaymentModal({ planId }: { planId: string }) {
             <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" strokeWidth={2} />
           </div>
           <h3 className="text-xl font-extrabold text-[#2B4238] dark:text-white mb-2 tracking-tight">
-            {status === "timeout" ? "Request Expired" : "Payment Failed"}
+            {status === "timeout" ? t("requestExpired") : t("paymentFailed")}
           </h3>
           <p className="text-sm text-neutral-500 dark:text-slate-400 mb-8 max-w-[280px] mx-auto leading-relaxed font-medium">
             {status === "timeout" 
-              ? "You didn't approve the telebirr request in time. Please try again." 
+              ? t("requestExpiredDesc")
               : error}
           </p>
           <button
             onClick={retry}
             className="w-full rounded-xl bg-neutral-100 dark:bg-slate-800 py-4 text-sm font-bold text-[#2B4238] dark:text-white hover:bg-neutral-200 dark:hover:bg-slate-700 transition-colors shadow-sm"
           >
-            Try again
+            {t("tryAgain")}
           </button>
         </div>
       )}
