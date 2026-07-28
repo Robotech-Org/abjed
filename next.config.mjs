@@ -24,8 +24,8 @@ const nextConfig = {
         {
           key: 'Content-Security-Policy',
           value: process.env.NODE_ENV === 'development'
-            ? "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com https://trusted-types.accounts.google.com; style-src 'self' 'unsafe-inline'; frame-src https://accounts.google.com; connect-src https://accounts.google.com;"
-            : "default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com https://trusted-types.accounts.google.com; style-src 'self' 'unsafe-inline'; frame-src https://accounts.google.com; connect-src https://accounts.google.com;"
+            ? "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com https://trusted-types.accounts.google.com; style-src 'self' 'unsafe-inline'; frame-src https://accounts.google.com; connect-src 'self' https://accounts.google.com;"
+            : "default-src 'self'; script-src 'self' 'unsafe-inline' https://accounts.google.com https://trusted-types.accounts.google.com; style-src 'self' 'unsafe-inline'; frame-src https://accounts.google.com; connect-src 'self' https://accounts.google.com;"
         },
       ],
     },
