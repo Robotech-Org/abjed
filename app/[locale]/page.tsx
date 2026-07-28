@@ -1,6 +1,6 @@
 import { Shield, CheckCircle2, Gamepad2, BarChart3, Star } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
+import { Link } from "@/src/i18n/routing";
 import Typewriter from "@/components/Typewriter";
 import Footer from "@/components/Footer";
 import { getTranslations } from "next-intl/server";

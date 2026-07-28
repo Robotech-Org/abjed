@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Mail, ArrowLeft, Loader2, CheckCircle2 } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/src/i18n/routing";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import { getErrorMessage } from "@/lib/errors";

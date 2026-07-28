@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Check, Loader2, CheckCircle, ArrowRight } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Link, useRouter } from "@/src/i18n/routing";
 import Navbar from "@/components/Navbar";
 import { useTranslations } from "next-intl";
 

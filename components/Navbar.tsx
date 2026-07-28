@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect, useTransition } from "react";
-import Link from "next/link";
-import { usePathname, useRouter } from "@/src/i18n/routing";
+import { Link, usePathname, useRouter } from "@/src/i18n/routing";
 import { useLocale, useTranslations } from "next-intl";
 import { Menu, X, GraduationCap, Ticket, Settings, LogOut, Globe } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";

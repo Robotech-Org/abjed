@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/src/i18n/routing";
 import { Loader2, AlertCircle, Smartphone, Phone, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { getErrorMessage } from "@/lib/errors";

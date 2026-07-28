@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { KeyRound, Lock, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Link, useRouter } from "@/src/i18n/routing";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import { getErrorMessage } from "@/lib/errors";

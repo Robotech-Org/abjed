@@ -2,8 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Shield, Sparkles, Mail,  Lock, CheckCircle2, Loader2, Eye, EyeOff, KeyRound } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Link, useRouter } from "@/src/i18n/routing";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import { getErrorMessage } from "@/lib/errors";

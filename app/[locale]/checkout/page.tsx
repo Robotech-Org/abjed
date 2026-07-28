@@ -1,5 +1,5 @@
 import { Check, ArrowLeft, Shield, Lock, CreditCard } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/src/i18n/routing";
 import Navbar from "@/components/Navbar";
 import PaymentModal from "@/components/PaymentModal";
 import Footer from "@/components/Footer";

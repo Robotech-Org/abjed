@@ -1,5 +1,5 @@
 import { Check, X, Shield, Lock } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/src/i18n/routing";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Typewriter from "@/components/Typewriter";
