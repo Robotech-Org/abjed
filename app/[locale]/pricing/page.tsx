@@ -10,7 +10,7 @@ export default async function PricingPage() {
   const tc = await getTranslations("Common");
   let plans: any[] = [];
   try {
-    const res = await fetch(`${process.env.ABJAD_API_BASE_URL}/plans`, { cache: 'no-store' });
+    const res = await fetch(`${process.env.ABJAD_API_BASE_URL}/plans`, { next: { revalidate: 3600 } });
     if (res.ok) {
       plans = await res.json();
     }

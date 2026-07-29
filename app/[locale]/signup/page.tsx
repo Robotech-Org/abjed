@@ -5,6 +5,7 @@ import { Shield, Sparkles, Mail, KeyRound, Lock, CheckCircle2, Loader2 } from "l
 import { Link, useRouter } from "@/src/i18n/routing";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
+import PasswordStrength from "@/components/PasswordStrength";
 import { getErrorMessage } from "@/lib/errors";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
@@ -182,6 +183,7 @@ export default function SignupPage() {
                     className={`block w-full ps-10 pe-3 py-3.5 rounded-xl bg-[#F4F4F4] dark:bg-slate-800 focus:bg-white dark:focus:bg-slate-950 sm:text-sm transition-colors outline-none border text-black dark:text-white ${fieldErrors.password ? 'border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-500' : 'border-transparent focus:border-[#2B4238] dark:focus:border-slate-600 focus:ring-1 focus:ring-[#2B4238] dark:focus:ring-slate-600'}`}
                   />
                 </div>
+                {password && <PasswordStrength password={password} />}
                 {fieldErrors.password && (
                   <p className="mt-1.5 text-xs text-red-600 font-medium">{fieldErrors.password}</p>
                 )}

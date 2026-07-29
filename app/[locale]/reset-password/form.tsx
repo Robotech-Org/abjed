@@ -5,6 +5,7 @@ import { KeyRound, Lock, CheckCircle2, AlertCircle, Loader2 } from "lucide-react
 import { Link, useRouter } from "@/src/i18n/routing";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
+import PasswordStrength from "@/components/PasswordStrength";
 import { getErrorMessage } from "@/lib/errors";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
@@ -155,6 +156,7 @@ export default function ResetPasswordForm({ token }: { token?: string }) {
                       className={`block w-full ps-10 pe-3 py-3.5 rounded-xl bg-[#F4F4F4] dark:bg-slate-800 focus:bg-white dark:focus:bg-slate-950 sm:text-sm transition-colors outline-none border text-black dark:text-white ${fieldErrors.newPassword ? 'border-red-400 focus:border-red-500 focus:ring-1 focus:ring-red-500' : 'border-transparent focus:border-[#2B4238] dark:focus:border-slate-600 focus:ring-1 focus:ring-[#2B4238] dark:focus:ring-slate-600'}`}
                     />
                   </div>
+                  {newPassword && <PasswordStrength password={newPassword} />}
                   {fieldErrors.newPassword && (
                     <p className="mt-1.5 text-xs text-red-600 font-medium">{fieldErrors.newPassword}</p>
                   )}
