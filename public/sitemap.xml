@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://abjadkids.com/en</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://abjadkids.com/en" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://abjadkids.com/ar" />
-    <xhtml:link rel="alternate" hreflang="am" href="https://abjadkids.com/am" />
+    <loc>https://abjdkids.com/en</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://abjedkids.com/en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://abjedkids.com/ar" />
+    <xhtml:link rel="alternate" hreflang="am" href="https://abjedkids.com/am" />
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://abjadkids.com/ar</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://abjadkids.com/en" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://abjadkids.com/ar" />
-    <xhtml:link rel="alternate" hreflang="am" href="https://abjadkids.com/am" />
+    <loc>https://abjedkids.com/ar</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://abjedkids.com/en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://abjedkids.com/ar" />
+    <xhtml:link rel="alternate" hreflang="am" href="https://abjedkids.com/am" />
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://abjadkids.com/am</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://abjadkids.com/en" />
-    <xhtml:link rel="alternate" hreflang="ar" href="https://abjadkids.com/ar" />
-    <xhtml:link rel="alternate" hreflang="am" href="https://abjadkids.com/am" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://abjedkids.com/en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://abjedkids.com/ar" />
+    <xhtml:link rel="alternate" hreflang="am" href="https://abjedkids.com/am" />
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>

@@ -4,4 +4,4 @@ Disallow: /api/
 Disallow: /checkout
 Disallow: /success
 
-Sitemap: https://abjadkids.com/sitemap.xml
+Sitemap: https://abjedkids.com/sitemap.xml
