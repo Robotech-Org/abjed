@@ -11,9 +11,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-start">
         <div className="flex flex-col items-center md:items-start gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center shadow-md">
-              <span className="text-white font-bold text-lg">A</span>
-            </div>
+            
             <span className="font-bold text-2xl tracking-tight text-[#2D3E35] dark:text-emerald-100">
               {t("brand")}
             </span>
