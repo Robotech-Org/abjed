@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import { getErrorMessage } from "@/lib/errors";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import Footer from "@/components/Footer";
 
 const forgotSchema = z.object({
   email: z.string().email("Please enter a valid email address."),
@@ -179,6 +180,7 @@ export default function ForgotPasswordPage() {
           </div>
         </div>
       </main>
+      <Footer/>
     </div>
   );
 }

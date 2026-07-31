@@ -105,13 +105,7 @@ export default function SuccessPage() {
         </div>
       </main>
 
-      <footer className="w-full pb-8 pt-4 text-xs text-neutral-400 dark:text-slate-500 font-medium flex items-center justify-center gap-6">
-        <Link href="#" className="hover:text-neutral-600 dark:hover:text-white transition-colors">{tc("contactSupport")}</Link>
-        <span className="w-1 h-1 rounded-full bg-neutral-300 dark:bg-slate-600"></span>
-        <Link href="#" className="hover:text-neutral-600 dark:hover:text-white transition-colors">{tc("openInBrowser")}</Link>
-        <span className="w-1 h-1 rounded-full bg-neutral-300 dark:bg-slate-600"></span>
-        <Link href="#" className="hover:text-neutral-600 dark:hover:text-white transition-colors">{tc("privacyPolicy")}</Link>
-      </footer>
+    
     </div>
   );
 }

@@ -9,6 +9,7 @@ import PasswordStrength from "@/components/PasswordStrength";
 import { getErrorMessage } from "@/lib/errors";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import Footer from "@/components/Footer";
 
 const signupSchema = z.object({
   email: z.string().email("Please enter a valid email address."),
@@ -295,20 +296,8 @@ export default function SignupPage() {
         </div>
       </main>
 
-      {/* Mobile-style Footer */}
-      <footer className="w-full bg-[#F3F6FF] dark:bg-slate-900 px-6 py-12 flex flex-col items-center text-center mt-auto border-t border-transparent dark:border-slate-800 transition-colors">
-        <h3 className="font-bold text-lg text-[#2B4238] dark:text-white mb-3">{tf("brand")}</h3>
-        <p className="text-[13px] text-neutral-500 dark:text-slate-400 mb-6 max-w-xs leading-relaxed">
-          {tf("description")}
-        </p>
-        <div className="flex gap-6 text-[13px] font-medium text-neutral-600 dark:text-slate-400 mb-6">
-          <Link href="#" className="hover:text-black dark:hover:text-white">{tf("privacyPolicy")}</Link>
-          <Link href="#" className="hover:text-black dark:hover:text-white">{tf("contactSupport")}</Link>
-        </div>
-        <p className="text-[11px] text-neutral-400 dark:text-slate-500">
-          {tf("copyright")}
-        </p>
-      </footer>
+     
+   <Footer/>
     </div>
   );
 }
