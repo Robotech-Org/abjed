@@ -31,9 +31,9 @@ export default async function Home() {
                   <Star className="w-10 h-10 md:w-12 md:h-12 text-yellow-600 fill-yellow-600" />
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold text-[#2B4238] dark:text-white mb-2 md:mb-4">{t("mascotTitle")}</h3>
-                <p className="text-neutral-500 dark:text-slate-400 max-w-[280px] md:max-w-sm leading-relaxed text-xs md:text-sm">
+                {/* <p className="text-neutral-500 dark:text-slate-400 max-w-[280px] md:max-w-sm leading-relaxed text-xs md:text-sm">
                   {t("mascotDesc")}
-                </p>
+                </p> */}
               </div>
             </div>
           </div>

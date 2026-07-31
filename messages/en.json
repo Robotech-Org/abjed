@@ -8,7 +8,7 @@
     "secure": "Secure"
   },
   "Navbar": {
-    "title": "ABJAD Kids",
+    "title": "ABJED Kids",
     "home": "Home",
     "subscription": "Subscription",
     "parentPortal": "Parent Portal",
@@ -24,18 +24,18 @@
     "cancel": "Cancel"
   },
   "Footer": {
-    "brand": "ABJAD Kids",
-    "copyright": "© 2026 Abjad Kids LLC. All rights reserved.",
+    "brand": "ABJED Kids",
+    "copyright": "© 2026 Abjed Kids LLC. All rights reserved.",
     "contactSupport": "Contact Support",
     "privacyPolicy": "Privacy Policy",
     "description": "Designed to feel safe, simple, and parent-friendly."
   },
   "Home": {
     "mascotTitle": "Your mascot space",
-    "mascotDesc": "A large welcoming area for the yellow ABJAD Kids mascot to sit beside the hero message and make the page feel instantly playful and familiar.",
+    "mascotDesc": "A large welcoming area for the yellow ABJED Kids mascot to sit beside the hero message and make the page feel instantly playful and familiar.",
     "adFree": "AD-FREE AND SAFE FOR KIDS",
     "heroTitle": "Master the Arabic Alphabet through Play!",
-    "heroDesc": "ABJAD Kids helps children discover Arabic letters with joyful mini-games, kid-safe learning moments, and a parent-friendly experience built to support progress at every step.",
+    "heroDesc": "ABJED Kids helps children discover Arabic letters with joyful mini-games, kid-safe learning moments, and a parent-friendly experience built to support progress at every step.",
     "downloadApp": "Download the App",
     "parentApproved": "Parent-approved learning flow",
     "feature1Title": "Interactive Mini-Games",
@@ -124,7 +124,7 @@
   },
   "Pricing": {
     "choosePlan": "Choose the Right Plan for Your Child",
-    "unlockAccess": "Unlock full access to the Abjad Kids app.",
+    "unlockAccess": "Unlock full access to the Abjed Kids app.",
     "selectPlan": "Select a Plan",
     "perMonth": " / mo",
     "perYear": " / yr",
@@ -193,7 +193,7 @@
     "checkoutF3": "Detailed parent progress reports",
     "secureTransaction": "Secure Transaction",
     "secureTransactionDesc": "Your payment is encrypted and securely processed by telebirr. Cancel anytime from your parent portal.",
-    "termsDisclaimerIntro": "By completing this purchase, you agree to ABJAD Kids's",
+    "termsDisclaimerIntro": "By completing this purchase, you agree to ABJED Kids's",
     "termsOfService": "Terms of Service",
     "termsDisclaimerAnd": "and",
     "privacyPolicy": "Privacy Policy",
