@@ -47,9 +47,14 @@ const Footer = () => {
             </div>
           </div>
           
-          <Link href="/privacy" className="text-sm font-semibold text-emerald-700 dark:text-emerald-400 hover:underline hover:text-emerald-800 dark:hover:text-emerald-300 transition-colors">
-            {t("privacyPolicy")}
-          </Link>
+          <div className="flex gap-4 items-center mt-2">
+            <Link href="/privacy" className="text-sm font-semibold text-emerald-700 dark:text-emerald-400 hover:underline hover:text-emerald-800 dark:hover:text-emerald-300 transition-colors">
+              {t("privacyPolicy")}
+            </Link>
+            <Link href="/delete-account" className="text-sm font-semibold text-emerald-700 dark:text-emerald-400 hover:underline hover:text-emerald-800 dark:hover:text-emerald-300 transition-colors">
+              {t("deleteAccount")}
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

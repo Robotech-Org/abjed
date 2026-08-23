@@ -14,6 +14,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
     messages = { ...messages, Privacy: privacy };
   } catch (e) {}
 
+  try {
+    const deleteAccount = (await import(`../../messages/${locale}/delete-account.json`)).default;
+    messages = { ...messages, DeleteAccount: deleteAccount };
+  } catch (e) {}
+
   return {
     locale,
     messages
