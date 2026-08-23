@@ -3,6 +3,8 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 
+import { Link } from "@/src/i18n/routing";
+
 const Footer = () => {
   const t = useTranslations("Footer");
 
@@ -24,24 +26,30 @@ const Footer = () => {
           </p>
         </div>
 
-        <div className="flex flex-col items-center md:items-end gap-2">
-          <h3 className="text-sm font-semibold text-[#2D3E35] dark:text-slate-300 tracking-wider uppercase mb-1 border-b-2 border-emerald-500/30 pb-1">
-            {t("contactSupport")}
-          </h3>
-          <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-4 gap-y-2 text-sm font-medium text-[#4A5D54] dark:text-slate-400">
-            <div className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-full shadow-sm">
-              <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-              <span className="text-[#2D3E35] dark:text-slate-300">abjedkids@gmail.com</span>
-            </div>
-            <div className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-full shadow-sm">
-              <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-              </svg>
-              <span className="text-[#2D3E35] dark:text-slate-300">+251 914 516 363</span>
+        <div className="flex flex-col items-center md:items-end gap-4">
+          <div className="flex flex-col items-center md:items-end gap-2">
+            <h3 className="text-sm font-semibold text-[#2D3E35] dark:text-slate-300 tracking-wider uppercase mb-1 border-b-2 border-emerald-500/30 pb-1">
+              {t("contactSupport")}
+            </h3>
+            <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-4 gap-y-2 text-sm font-medium text-[#4A5D54] dark:text-slate-400">
+              <div className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-full shadow-sm">
+                <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2-2v10a2 2 0 002 2z" />
+                </svg>
+                <span className="text-[#2D3E35] dark:text-slate-300">abjedkids@gmail.com</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/50 dark:bg-slate-800/50 px-3 py-1.5 rounded-full shadow-sm">
+                <svg className="w-4 h-4 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <span className="text-[#2D3E35] dark:text-slate-300">+251 914 516 363</span>
+              </div>
             </div>
           </div>
+          
+          <Link href="/privacy" className="text-sm font-semibold text-emerald-700 dark:text-emerald-400 hover:underline hover:text-emerald-800 dark:hover:text-emerald-300 transition-colors">
+            {t("privacyPolicy")}
+          </Link>
         </div>
       </div>
     </footer>
