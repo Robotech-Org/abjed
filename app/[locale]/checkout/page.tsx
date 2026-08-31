@@ -31,7 +31,7 @@ export default async function CheckoutPage({
 
   let plans: any[] = [];
   try {
-    const res = await fetch(`${process.env.ABJAD_API_BASE_URL}/plans`, { next: { revalidate: 3600 } });
+    const res = await fetch(`${process.env.ABJAD_API_BASE_URL}/plans`, { next: { revalidate: 60 } });
     if (res.ok) {
       plans = await res.json();
     }
