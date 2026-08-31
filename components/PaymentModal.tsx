@@ -1,30 +1,18 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { useRouter } from "@/src/i18n/routing";
-import { Loader2, AlertCircle, Smartphone, Phone, ShieldCheck } from "lucide-react";
+import { Loader2, AlertCircle, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { getErrorMessage } from "@/lib/errors";
 
-type Status =
-  | "collecting-phone"
-  | "submitting"
-  | "polling"
-  | "failed"
-  | "timeout";
-
-// Matches the backend's expected format: 09xxxxxxxx or 2519xxxxxxxx
-const MOBILE_PATTERN = /^(09\d{8}|2519\d{8})$/;
+type Status = "idle" | "submitting" | "failed";
 
 export default function PaymentModal({ planId }: { planId: string }) {
-  const router = useRouter();
   const t = useTranslations("Checkout");
   const tErrors = useTranslations("Errors");
-  const [status, setStatus] = useState<Status>("collecting-phone");
-  const [mobile, setMobile] = useState("");
-  const [mobileError, setMobileError] = useState("");
+  const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
-  const idempotencyKey = useRef(""); // initialized on submit
+  const idempotencyKey = useRef("");
 
   function getSafeIdempotencyKey() {
     if (typeof window !== "undefined" && window.crypto && window.crypto.randomUUID) {
@@ -33,19 +21,7 @@ export default function PaymentModal({ planId }: { planId: string }) {
     return Math.random().toString(36).substring(2) + Date.now().toString(36);
   }
 
-  function validateMobile() {
-    if (!MOBILE_PATTERN.test(mobile)) {
-      setMobileError(t("phoneValidation"));
-      return false;
-    }
-    setMobileError("");
-    return true;
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!validateMobile()) return;
-
+  async function handleSubmit() {
     setStatus("submitting");
     setError("");
 
@@ -54,12 +30,13 @@ export default function PaymentModal({ planId }: { planId: string }) {
     }
 
     try { 
+      const returnUrl = window.location.origin + "/success";
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           planId, 
-          mobile, 
+          returnUrl,
           idempotencyKey: idempotencyKey.current,
         }),
       });
@@ -67,144 +44,63 @@ export default function PaymentModal({ planId }: { planId: string }) {
       if (!res.ok) {
         throw Object.assign(new Error(data.error), { code: data.error });
       }
-      pollForActive();
+      
+      if (data.checkoutSession && data.checkoutSession.kind === "redirect") {
+         window.location.href = data.checkoutSession.url;
+      } else {
+         throw new Error("unexpected_response");
+      }
     } catch (err: any) {
       setError(getErrorMessage(err.code ?? err.message, tErrors));
       setStatus("failed");
     }
   }
 
-  async function pollForActive() {
-    setStatus("polling");
-    const maxAttempts = 24; // 24 * 5s = 2 minutes
-    for (let i = 0; i < maxAttempts; i++) {
-      await new Promise((r) => setTimeout(r, 5000));
-      try {
-        const res = await fetch("/api/subscriptions/me");
-        const data = await res.json();
-        const active = data.subscriptions?.some(
-          (s: any) => s.status === "active"
-        );
-        if (active) {
-          router.push("/success");
-          return;
-        }
-      } catch {
-        // Transient network blip while polling — keep trying, don't bail.
-      }
-    }
-    setStatus("timeout");
-  }
-
   function retry() {
     idempotencyKey.current = getSafeIdempotencyKey(); // new logical attempt
     setError("");
-    setStatus("collecting-phone");
+    setStatus("idle");
   }
 
   return (
     <div className="w-full bg-white dark:bg-slate-900 rounded-[32px] border border-neutral-100 dark:border-slate-800 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none p-6 md:p-8 transition-colors">
-      {(status === "collecting-phone" || status === "submitting") && (
+      {(status === "idle" || status === "submitting") && (
         <div className="animate-in fade-in duration-300">
           <div className="mb-8 text-center">
-            <div className="w-14 h-14 bg-blue-50 dark:bg-blue-900/40 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-blue-100 dark:border-blue-800 shadow-sm">
-              <Smartphone className="w-7 h-7 text-blue-600 dark:text-blue-400" strokeWidth={2} />
-            </div>
-            <h3 className="text-xl font-extrabold text-[#2B4238] dark:text-white tracking-tight">{t("telebirrPayment")}</h3>
-            <p className="text-sm text-neutral-500 dark:text-slate-400 mt-2 font-medium">{t("enterMobileMoney")}</p>
+            <h3 className="text-xl font-extrabold text-[#2B4238] dark:text-white tracking-tight">Pay with Chapa</h3>
+            <p className="text-sm text-neutral-500 dark:text-slate-400 mt-2 font-medium">You will be redirected to securely complete your payment.</p>
           </div>
 
-          <form onSubmit={handleSubmit} noValidate className="space-y-5">
-            <div>
-              <label
-                htmlFor="mobile"
-                className="block text-[13px] font-bold text-[#2B4238] dark:text-slate-300 uppercase tracking-wide mb-2"
-              >
-                {t("phoneNumber")}
-              </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 start-0 ps-4 flex items-center pointer-events-none">
-                  <Phone className="h-4 w-4 text-neutral-400 dark:text-slate-500" />
-                </div>
-                <input
-                  id="mobile"
-                  type="tel"
-                  value={mobile}
-                  onChange={(e) => {
-                    setMobile(e.target.value);
-                    if (mobileError) setMobileError("");
-                  }}
-                  placeholder={t("phonePlaceholder")}
-                  aria-invalid={!!mobileError}
-                  aria-describedby={mobileError ? "mobile-error" : undefined}
-                  className={`block w-full ps-11 pe-4 text-gray-900 dark:text-white py-3.5 rounded-xl bg-[#F4F4F4] dark:bg-slate-800 focus:bg-white dark:focus:bg-slate-950 text-sm font-medium outline-none transition-all duration-200 border ${
-                    mobileError
-                      ? "border-red-400 focus:border-red-500 focus:ring-4 focus:ring-red-500/10"
-                      : "border-transparent focus:border-blue-500 dark:focus:border-blue-500/50 focus:ring-4 focus:ring-blue-500/10"
-                  }`}
-                />
-              </div>
-              {mobileError && (
-                <p id="mobile-error" className="mt-2 text-xs font-semibold text-red-600 dark:text-red-400 flex items-center gap-1">
-                  <AlertCircle className="w-3.5 h-3.5" />
-                  {mobileError}
-                </p>
-              )}
-            </div>
-
-            <button
-              type="submit"
-              disabled={status === "submitting"}
-              className="w-full rounded-xl bg-[#2B4238] py-4 text-sm font-bold text-white hover:bg-[#1E3028] transition-all duration-200 disabled:opacity-70 shadow-sm hover:shadow-md flex items-center justify-center gap-2 mt-2"
-            >
-              {status === "submitting" ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  {t("requestingPayment")}
-                </>
-              ) : (
-                <>
-                  <ShieldCheck className="w-4 h-4 text-green-400" />
-                  {t("payWithTelebirr")}
-                </>
-              )}
-            </button>
-          </form>
+          <button
+            onClick={handleSubmit}
+            disabled={status === "submitting"}
+            className="w-full rounded-xl bg-[#2B4238] py-4 text-sm font-bold text-white hover:bg-[#1E3028] transition-all duration-200 disabled:opacity-70 shadow-sm hover:shadow-md flex items-center justify-center gap-2"
+          >
+            {status === "submitting" ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin" />
+                {t("requestingPayment")}
+              </>
+            ) : (
+              <>
+                <ShieldCheck className="w-4 h-4 text-green-400" />
+                Pay with Chapa
+              </>
+            )}
+          </button>
         </div>
       )}
 
-      {status === "polling" && (
-        <div className="text-center py-8 animate-in fade-in duration-300">
-          <div className="relative w-20 h-20 mx-auto mb-6">
-            <div className="absolute inset-0 border-4 border-blue-50 dark:border-blue-900/40 rounded-full"></div>
-            <div className="absolute inset-0 border-4 border-blue-500 rounded-full border-t-transparent animate-spin"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Smartphone className="w-8 h-8 text-blue-500 dark:text-blue-400 animate-pulse" strokeWidth={1.5} />
-            </div>
-          </div>
-          <h3 className="text-xl font-extrabold text-[#2B4238] dark:text-white mb-2 tracking-tight">{t("checkYourPhone")}</h3>
-          <p className="text-sm text-neutral-500 dark:text-slate-400 leading-relaxed max-w-[260px] mx-auto font-medium">
-            {t("paymentPromptDesc")}
-          </p>
-          <div className="mt-8 inline-flex items-center gap-2 text-xs font-bold text-neutral-400 dark:text-slate-500 uppercase tracking-widest bg-neutral-50 dark:bg-slate-800 px-4 py-2 rounded-full">
-            <Loader2 className="w-3.5 h-3.5 animate-spin" />
-            {t("awaitingConfirmation")}
-          </div>
-        </div>
-      )}
-
-      {(status === "failed" || status === "timeout") && (
+      {status === "failed" && (
         <div role="alert" className="text-center py-6 animate-in fade-in duration-300">
           <div className="w-16 h-16 bg-red-50 dark:bg-red-950/30 rounded-2xl flex items-center justify-center mx-auto mb-5 border border-red-100 dark:border-red-900/50 shadow-sm">
             <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" strokeWidth={2} />
           </div>
           <h3 className="text-xl font-extrabold text-[#2B4238] dark:text-white mb-2 tracking-tight">
-            {status === "timeout" ? t("requestExpired") : t("paymentFailed")}
+            {t("paymentFailed")}
           </h3>
           <p className="text-sm text-neutral-500 dark:text-slate-400 mb-8 max-w-[280px] mx-auto leading-relaxed font-medium">
-            {status === "timeout" 
-              ? t("requestExpiredDesc")
-              : error}
+            {error}
           </p>
           <button
             onClick={retry}
