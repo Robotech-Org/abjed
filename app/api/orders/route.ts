@@ -2,13 +2,13 @@ import { backendFetch } from "@/lib/backend";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const { planId, mobile, idempotencyKey } = await req.json();
+  const { planId, returnUrl, idempotencyKey } = await req.json();
 
   try {
     const res = await backendFetch("/orders", {
       method: "POST",
       headers: { "Idempotency-Key": idempotencyKey },
-      body: JSON.stringify({ planId, mobile }),
+      body: JSON.stringify({ planId, returnUrl }),
     });
 
     const data = await res.json();
