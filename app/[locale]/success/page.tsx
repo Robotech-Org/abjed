@@ -39,7 +39,7 @@ export default function SuccessPage() {
     if (isVerifying) return;
 
     if (timeLeft <= 0) {
-      router.push("/");
+      window.location.href = "abjedkids://subscribed";
       return;
     }
 
@@ -93,7 +93,7 @@ export default function SuccessPage() {
           </div>
 
           <button 
-            onClick={() => router.push("/")}
+            onClick={() => window.location.href = "abjedkids://subscribed"}
             className="w-full py-4 bg-[#2B4238] dark:bg-green-600 text-white font-bold rounded-xl hover:bg-[#1E3028] dark:hover:bg-green-500 transition-colors shadow-sm"
           >
             {t("returnToGame")}

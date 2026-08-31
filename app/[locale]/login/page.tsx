@@ -41,7 +41,7 @@ export default function LoginPage() {
       });
       const data = await res.json();
       if (!res.ok) throw Object.assign(new Error(data.error), { code: data.error });
-      router.replace("/pricing");
+      router.replace("/onboarding");
     } catch (err: any) {
       toast.error(getErrorMessage(err.code ?? err.message, tErrors));
     } finally {
@@ -106,7 +106,7 @@ export default function LoginPage() {
         throw Object.assign(new Error(data.error), { code: data.error });
       }
       
-      router.replace("/pricing")
+      router.replace("/onboarding")
     } catch (err: any) {
       setStatus("error");
       if (err.name === "SyntaxError") {
