@@ -17,9 +17,9 @@ export default async function PricingPage() {
   } catch (error) {
   }
 
-  const explorerPlan = plans.find((p: any) => p.name === "Explorer");
-  const superPlan = plans.find((p: any) => p.name === "Super Learner");
-  const ultimatePlan = plans.find((p: any) => p.name === "Ultimate Learner");
+  const explorerPlan = plans.find((p: any) => p.name === "1 Month");
+  const superPlan = plans.find((p: any) => p.name === "1 Year");
+  const ultimatePlan = plans.find((p: any) => p.name === "Lifetime");
 
   return (
     <div className="min-h-screen bg-[#FDF9F1] dark:bg-slate-950 font-sans text-[#2B4238] dark:text-slate-100 transition-colors duration-300">

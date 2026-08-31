@@ -42,7 +42,7 @@ export default async function CheckoutPage({
 
   const planName = selectedPlan?.name || t("premiumFallback");
   const planPrice = selectedPlan ? `${selectedPlan.priceEtbSantim / 100} Birr` : "— Birr";
-  const planInterval = selectedPlan?.name === "Super Learner" ? "Yearly" : (selectedPlan?.name === "Ultimate Learner" ? "Lifetime" : "Monthly");
+  const planInterval = selectedPlan?.name === "1 Year" ? "Yearly" : (selectedPlan?.name === "Lifetime" ? "Lifetime" : "Monthly");
 
   return (
     <div className="min-h-screen bg-[#FDF9F1] dark:bg-slate-950 font-sans text-[#2B4238] dark:text-slate-100 flex flex-col transition-colors duration-300">
